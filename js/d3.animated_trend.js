@@ -6,6 +6,7 @@ function AnimatedTrendGraph(id, config) {
   this.height = config.height || 400;
   this.width  = config.width || 1000;
   this.delay  = config.delay || 500;
+  this.numSubdivisions = config.subdivisions || 12;
 
   this.drawGraph = function(data) {
     var self = this;
@@ -54,7 +55,7 @@ function AnimatedTrendGraph(id, config) {
     var self = this;
 
     // calculate where to draw the new points
-    this.increment = (this.increment + 1) % 12;
+    this.increment = (this.increment + 1) % this.numSubdivisions;
 
     // if we have new data, update the graph with it
     // TODO: Animate a transition to the new points
@@ -64,7 +65,7 @@ function AnimatedTrendGraph(id, config) {
     }
 
     // calculate delay for the size of data
-    var delay = this.delay * (17/data.length);
+    var delay = this.delay * (17/data.length) + ((12 - this.numSubdivisions) * (this.delay * .025));
 
     // update/animate the line
     this.graph.selectAll("path")
@@ -123,7 +124,7 @@ function AnimatedTrendGraph(id, config) {
 
   this.distanceToIncrement = function() {
     // every five seconds
-    return (this.width / this.data.length) / 12;
+    return (this.width / this.data.length) / this.numSubdivisions;
   };
 
   // X scale function
