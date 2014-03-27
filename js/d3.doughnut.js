@@ -6,6 +6,8 @@ function DoughnutChart(id, config) {
   config = config ? config : {};
   this.width = config.width || 300;
   this.height = config.height || 300;
+  this.separator = config.separator || null;
+  this.legend = [];
 
   this.radius = Math.min(this.width, this.height) / 2;
   this.chartdata = null;
@@ -23,7 +25,10 @@ function DoughnutChart(id, config) {
     "#de783b",
     "#6ab975",
     "#a173d1",
-    "#bbbbbb"
+    "#bbbbbb",
+    "#ffaa00",
+    "#d1d173",
+    "#b96a7e"
   ];
 
   // Total size of all segments; we set this later, after loading the data.
@@ -33,6 +38,7 @@ function DoughnutChart(id, config) {
     d3.select(id).selectAll('svg').remove();
     d3.select("#legend").selectAll('svg').remove();
 
+    data.splice(this.colors.length);
     json = this.buildHierarchy(data);
     this.createVisualization(json);
   };
@@ -58,13 +64,7 @@ function DoughnutChart(id, config) {
       .innerRadius(function(d) { return Math.sqrt(d.y); })
       .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
-    // shorten to unique colors
-    json.children.splice(this.colors.length);
     this.chartdata = json.children;
-
-    // Basic setup of page elements.
-    this.initializeLabels();
-    this.drawLegend();
 
     d3.select("#togglelegend")
       .on("click", this.toggleLegend);
@@ -87,9 +87,22 @@ function DoughnutChart(id, config) {
       .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", this.arc)
       .attr("fill-rule", "evenodd")
-      .style("fill", function(d, i) { return self.colors[parseInt(i)-1]; })
+      .style("fill", function(d, i) {
+          if (self.colors.length <= i-1) {
+              self.colors.push(self.generateColor());
+          }
+          d.color = self.colors[i - 1];
+          if (!d.children) {
+              self.legend.push(d);
+          }
+          return d.color;
+      })
       .style("opacity", 1)
       .on("mouseover", this.mouseover);
+
+    // Basic setup of page elements.
+    this.initializeLabels();
+    this.drawLegend();
 
     // Add the mouseleave handler to the bounding circle.
     d3.select("#container").on("mouseleave", this.mouseleave);
@@ -187,7 +200,7 @@ function DoughnutChart(id, config) {
   this.initializeLabels = function() {
     // Add the svg area.
     var trail = d3.select("#pagelabel").append("svg:svg")
-      .attr("width", this.width*.67)
+      .attr("width", this.width*0.67)
       .attr("height", 50)
       .attr("id", "trail");
   };
@@ -222,16 +235,12 @@ function DoughnutChart(id, config) {
   this.updateLabels = function(nodeArray, percentageString) {
     var self = this;
 
-    for (var i in this.chartdata) {
-      if (this.chartdata[i].name == nodeArray[0].name) {
-        nodeArray[0].order = parseInt(i);
-      }
-    }
+    var selectedNode = nodeArray[nodeArray.length-1];
 
     // Data join; key function combines name and depth (= position in sequence).
     var g = d3.select("#trail")
         .selectAll("g")
-        .data(nodeArray, function(d) { return d.name + d.depth; });
+        .data([selectedNode], function(d) { return d.name; });
 
     // Add breadcrumb and label for entering nodes.
     var entering = g.enter().append("svg:g");
@@ -239,7 +248,7 @@ function DoughnutChart(id, config) {
     entering.append("svg:polygon")
       .attr("points", this.labelPoints)
       .style("fill", function(d, i) {
-        return self.colors[d.order];
+        return d.color;
       });
 
     var charcount = (this.l.w)/8;
@@ -316,12 +325,15 @@ function DoughnutChart(id, config) {
       w: 140, h: 30, s: 3, r: 3
     };
 
+    // remove legend in case it exists
+    d3.select("#legend").select("svg").remove();
+
     var legend = d3.select("#legend").append("svg:svg")
         .attr("width", li.w)
-        .attr("height", d3.keys(this.colors).length * (li.h + li.s));
+        .attr("height", this.legend.length * (li.h + li.s));
 
     var g = legend.selectAll("g")
-        .data(d3.entries(this.colors))
+        .data(this.legend)
         .enter().append("svg:g")
         .attr("transform", function(d, i) {
             return "translate(0," + i * (li.h + li.s) + ")";
@@ -332,7 +344,7 @@ function DoughnutChart(id, config) {
         .attr("ry", li.r)
         .attr("width", li.w)
         .attr("height", li.h)
-        .style("fill", function(d) { return d.value; });
+        .style("fill", function(d) { return d.color; });
 
     g.append("svg:text")
         .attr("x", 10)
@@ -340,7 +352,9 @@ function DoughnutChart(id, config) {
         .attr("width", li.w)
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
-        .text(function(d) { return self.chartdata[d.key].name; });
+        .text(function(d, i) {
+            return d.name;
+        });
   };
 
   this.toggleLegend = function() {
@@ -364,35 +378,41 @@ function DoughnutChart(id, config) {
       if (isNaN(size)) { // e.g. if this is a header row
         continue;
       }
-      var parts = sequence.split("-");
+      var parts = this.separator ? sequence.split(this.separator) : [sequence];
       var currentNode = root;
       for (var j = 0; j < parts.length; j++) {
         var children = currentNode["children"];
         var nodeName = parts[j];
         var childNode;
         if (j + 1 < parts.length) {
-     // Not yet at the end of the sequence; move down the tree.
-      var foundChild = false;
-      for (var k = 0; k < children.length; k++) {
-        if (children[k]["name"] == nodeName) {
-          childNode = children[k];
-          foundChild = true;
-          break;
-        }
-      }
-    // If we don't already have a child node for this branch, create it.
-      if (!foundChild) {
-        childNode = {"name": nodeName, "children": []};
-        children.push(childNode);
-      }
-      currentNode = childNode;
+          // Not yet at the end of the sequence; move down the tree.
+          var foundChild = false;
+          for (var k = 0; k < children.length; k++) {
+            if (children[k]["name"] == nodeName) {
+              childNode = children[k];
+              foundChild = true;
+              break;
+            }
+          }
+          // If we don't already have a child node for this branch, create it.
+          if (!foundChild) {
+            childNode = {"name": nodeName, "children": []};
+            children.push(childNode);
+          }
+          currentNode = childNode;
         } else {
-      // Reached the end of the sequence; create a leaf node.
-      childNode = {"name": nodeName, "size": size};
-      children.push(childNode);
+          // Reached the end of the sequence; create a leaf node.
+          childNode = {"name": nodeName, "size": size};
+          children.push(childNode);
         }
       }
     }
     return root;
+  };
+
+  this.generateColor = function() {
+      hex = Math.floor(Math.random()*16777215).toString(16);
+
+      return '#' + "000000".substring(0, 6-hex.length) + hex;
   };
 }
