@@ -242,6 +242,7 @@ circle {
   width: 180px;
   margin-left:-100px;
   position:absolute;
+  z-index:-10;
 }
 
 #pagelabel text {
