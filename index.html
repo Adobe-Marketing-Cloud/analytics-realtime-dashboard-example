@@ -101,7 +101,7 @@
 
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
-            
+
             params = {
                 "reportDescription": {
                     "reportSuiteID": config.reportSuite,
@@ -111,7 +111,7 @@
                     "periodCount": 17
                 }
             };
-            
+
             // set the dashboard to make a report request every 5 seconds
             var time = 5000; // milliseconds
             var interval = setInterval(makeRealTimeRequest, time);
@@ -124,7 +124,6 @@
 <body id="index" class="home">
     <div id="header">
         <div id="links" class="content">
-            Header
         </div>
     </div>
     <div id="dashboard" class="content">

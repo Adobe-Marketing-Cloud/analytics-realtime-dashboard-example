@@ -160,7 +160,7 @@ path {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #e0e0e0;
   shape-rendering: crispEdges;
 }
 
@@ -175,7 +175,7 @@ circle {
 }
 
 .x.axis line {
-  stroke: #000;
+  stroke: #e0e0e0;
 }
 
 .x.axis .minor {
@@ -183,12 +183,12 @@ circle {
 }
 
 .x.axis path {
-  stroke: #000;
+  stroke: #e0e0e0;
 }
 
 .y.axis line, .y.axis path {
   fill: none;
-  stroke: #000;
+  stroke: #e0e0e0;
 }
 
 #trendGraph {
