@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Marketing Cloud Javascript SDK</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="wsse.js"></script>
+    <script type="text/javascript" src="marketing_cloud.js"></script>
+</head>
+<body>
+    <h1>Call the Marketing Cloud APIs</h1>
+    <form id="api-call-form">
+        <table>
+            <tr>
+                <td><label>Username</label></td><td><input type="text" size="50" id="username"/><td><td><a href="https://sc.omniture.com/p/suite/1.3/index.html?a=User.GetAccountInfo" target="_blank">where is this?</a></td>
+            </tr>
+            <tr>
+                <td><label>Secret</label></td><td><input type="text" size="50" id="secret"/></td>
+            </tr>
+            <tr>
+                <td><label>Method</label></td><td><input type="text" value="Company.GetReportSuites" size="50" id="method"/></td>
+            </tr>
+            <tr>
+                <td><label>Endpoint</label>
+                <td>
+                <select id="endpoint">
+                    <option value="beta-b-api.omniture.com" selected>San Jose</option>
+                    <option value="api2.omniture.com">Dallas</option>
+                    <option value="api3.omniture.com">London</option>
+                    <option value="api4.omniture.com">Singapore</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" /></td>
+            </tr>
+        </table>
+    </form>
+
+    <div id="api-response">&nbsp;</div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#api-call-form').submit(function(e) {
+                $('#api-response').html('calling...');
+                MarketingCloud.makeRequest($('#username').val(), $('#secret').val(), $('#method').val(), {"reportDescription":{"reportSuiteID":"omniture.suiteall","metrics":[{"id":"instances",}],"elements":[{"id":"page",}],}}, $('#endpoint').val(), function(e) {
+                    $('#api-response').html(e.responseText)
+                });
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>
+<form>
