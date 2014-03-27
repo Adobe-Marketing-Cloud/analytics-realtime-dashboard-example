@@ -1,3 +1,12 @@
+/*
+ Adobe Real-Time Dashboard Example (2014-03-27)
+
+ Javascript class to create an animated trend graph
+
+ License: Apache License (See Project License)
+
+ Author: Brent Shaffer
+*/
 function AnimatedTrendGraph(id, config) {
   this.increment = 0;
 
