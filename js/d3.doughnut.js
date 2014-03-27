@@ -1,3 +1,12 @@
+/*
+ Adobe Real-Time Dashboard Example (2014-03-27)
+
+ Javascript class to create a donut chart
+
+ License: Apache License (See Project License)
+
+ Author: Brent Shaffer
+*/
 function DoughnutChart(id, config) {
   // for event handlers
   var donutchart = this;
