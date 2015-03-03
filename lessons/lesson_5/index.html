@@ -22,7 +22,7 @@
 
     <script type="text/javascript">
 
-        var method = 'Report.GetRealTimeReport';
+        var method = 'Report.Run';
 
         var params = {};
 
@@ -76,7 +76,7 @@
                     ]
                 }
             };
-            
+
             // set the dashboard to make a report request every 5 seconds
             var time = 5000; // milliseconds
             var interval = setInterval(makeRealTimeRequest, time);

@@ -8,6 +8,6 @@
 var config = {
     username:     "labuser:Real Time Dashboard Lab",
     secret:       "75d03af19787f81a6f5016c885bc3541",
-    reportSuite:  "omniture.devportal",
+    reportSuite:  "rtd-example",
     endpoint:     "api.omniture.com"
 };

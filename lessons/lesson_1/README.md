@@ -28,8 +28,8 @@ We are going to use the API explorer to pull a Real-Time report with the API. Th
 
 1.    In your browser go to https://marketing.adobe.com/developer/en_US/get-started/api-explorer
 2.    Enter the following credentials
-    *    API Username:  ```labuser:Real Time Dashboard Lab 2015```
-    *    Secret: ```7c8d18dd8fb271a9b5dd91c55204305c```
+    *    API Username:  ```labuser:Real Time Dashboard Lab```
+    *    Secret: ```75d03af19787f81a6f5016c885bc3541```
 3.    Select the following options
     *    Version: 1.4
     *   API: Report
@@ -40,7 +40,7 @@ We are going to use the API explorer to pull a Real-Time report with the API. Th
     {
         "reportDescription":{
             "source": "realtime",
-            "reportSuiteID":"omniture.devportal",
+            "reportSuiteID":"rtd-example",
             "metrics":[
                 {"id":"instances"}
             ]
@@ -62,7 +62,7 @@ There are a lot of options that we can pull with the real-time report. You can f
 {
     "reportDescription":{
         "source": "realtime",
-        "reportSuiteID":"omniture.devportal",
+        "reportSuiteID":"rtd-example",
         "metrics":[
             {"id":"instances"}
         ],
@@ -78,7 +78,7 @@ There are a lot of options that we can pull with the real-time report. You can f
 {
     "reportDescription":{
         "source": "realtime",
-        "reportSuiteID":"omniture.devportal",
+        "reportSuiteID":"rtd-example",
         "metrics":[
             {"id":"instances"}
         ],
@@ -95,7 +95,7 @@ There are a lot of options that we can pull with the real-time report. You can f
 {
     "reportDescription":{
         "source": "realtime",
-        "reportSuiteID":"omniture.devportal",
+        "reportSuiteID":"rtd-example",
         "metrics":[
             {"id":"instances"}
         ],
@@ -112,14 +112,14 @@ There are a lot of options that we can pull with the real-time report. You can f
 {
     "reportDescription":{
         "source": "realtime",
-        "reportSuiteID":"omniture.devportal",
+        "reportSuiteID":"rtd-example",
         "metrics":[
             {"id":"instances"}
         ],
         "elements":[
             {"id":"page"}
         ],
-        "periodCount":"60"
+        "dateFrom":"-1 hour"
     }
 }
 ```
@@ -129,7 +129,7 @@ There are a few more options that can be found in the documentation. However, th
 Getting the current real-time configuration
 -----
 
-In addition to being able to pull the reports with the API you can also pull the current Real-Time configuration with that API. Additionally you can set the configuration as well. The Docs for that can be found here. https://marketing.adobe.com/developer/en_US/documentation/omniture-administration/r-getrealtimeconfiguration
+In addition to being able to pull the reports with the API you can also pull the current Real-Time configuration with that API. Additionally you can set the configuration as well. The Docs for that can be found here. https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-getrealtimesettings
 
 In the following steps we will pull the Real-Time configuration:
 
@@ -138,7 +138,7 @@ In the following steps we will pull the Real-Time configuration:
     *    API: ReportSuite
     *    Method: GetRealTimeSettings
 2.    Enter the ReportSuite ID in the rsid_list
-    *    RSID: ```omniture.devportal```
+    *    RSID: ```rtd-example```
     *    Hit Get Response
 
 Take a look at the configuration for our sample report suite. Each Real-Time metric is organized as a correlation. A correlation is a metric with up to two metrics that you can "break-down" the metric by.

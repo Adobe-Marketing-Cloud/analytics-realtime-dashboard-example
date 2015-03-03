@@ -22,7 +22,7 @@ Our Doughnut Chart JavaScript class uses the same library (d3) as our trend line
         ...
     </head>
 ```
-Now we just need to create a new graph object, just like before.  
+Now we just need to create a new graph object, just like before.
 
 2. First, instantiate a new graph object.  This can be done beneath your existing JavaScript for instantiating the `params` variable.
 ```html
@@ -96,10 +96,10 @@ Once again, we need to get our data in the proper format. The Doughnut Chart dat
 ```
 Unlike our last data set, this data does not have to be in any particular order.
 
-1.	The Real-Time data is formatted so that each element has an individual total for that page for the time selected.  So we can easily loop through the first level of items, and return this total, along with the name property, to create the array above.
+1.	The Real-Time data is formatted so that each element is a time period with all the elements recording fo rthat period. So we can loop through the first minute and return the total, along with the name property, to create the array above.
 ```js
-    data = report.data.map(function(page) {
-      return [page.name, page.counts];
+    data = report.data[0].breakdown.map(function(page) {
+        return [page.name, page.counts[0]];
     });
 ```
 
@@ -119,8 +119,9 @@ Unlike our last data set, this data does not have to be in any particular order.
         count = typeof count == 'undefined' ? 0 : (count + 1) % 12;
         if (count == 0) {
             // return the total count for each page
-            data = report.data.map(function(page) {
-                return [page.name, page.counts];
+            // formatted data is [["PageName", 123], ["PageName 2", 456]] for each page shown in the doughnut
+            data = report.data[0].breakdown.map(function(page) {
+                return [page.name, page.counts[0]];
             });
 
             donutChart.redrawChart(data);

@@ -26,7 +26,7 @@
 
     <script type="text/javascript">
 
-        var method = 'Report.GetRealTimeReport';
+        var method = 'Report.Run';
 
         var params = {};
 
@@ -55,7 +55,7 @@
             // pull the minute totals for each minute
             // formatted data is [100, 200, 300, ...] (newest data last)
             data = firstPage.map(function(minute) {
-                return minute.breakdown_total[0];
+                return parseInt(minute.breakdownTotal[0]);
             }).reverse();
 
             trendGraph.redrawGraph(data);
@@ -67,10 +67,10 @@
             var counts = "0";
             var tbody = $("#data-table").find("tbody");
             $("#data-table").find("tr:gt(0)").remove();
-            for (var i in report.data) {
-                counts = report.data[i].counts.toString().commaSeparate();
+            for (var i in report.data[0].breakdown) {
+                counts = report.data[0].breakdown[i].counts[0].toString().commaSeparate();
                 row = $("#clone-table").find("tr:nth-child(1)").clone();
-                row.find("td:nth-child(1)").html(report.data[i].name);
+                row.find("td:nth-child(1)").html(report.data[0].breakdown[i].name);
                 row.find("td:nth-child(2)").html(counts);
                 row.appendTo(tbody);
             }
@@ -85,7 +85,7 @@
         };
 
         // code to run when the HTML is fully loaded
-        $( document ).ready(function() {   
+        $( document ).ready(function() {
             params = {
                 "reportDescription":{
                     "reportSuiteID": config.reportSuite,
@@ -94,11 +94,12 @@
                     ], "elements": [
                         { "id": "page" }
                     ],
-                    "periodMinutes": 1,
-                    "periodCount": 17
+                    "dateTo": "-17 minutes",
+                    "dateGranularity": "minute:1",
+                    "source": "realtime"
                 }
             };
-            
+
             // set the dashboard to make a report request every 5 seconds
             var time = 5000; // milliseconds
             var interval = setInterval(makeRealTimeRequest, time);

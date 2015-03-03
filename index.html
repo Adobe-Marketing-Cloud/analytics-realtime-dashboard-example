@@ -27,7 +27,7 @@
     <script type="text/javascript">
         var params = {};
 
-        var method = 'Report.GetRealTimeReport';
+        var method = 'Report.Run';
 
         var trendGraph = new AnimatedTrendGraph("#trendGraph", { width: 660, height: 200, delay: 60000});
         var donutChart = new DoughnutChart("#doughnutChart", { width: 300, height: 450 });
@@ -49,14 +49,11 @@
 
         // trends graph
         $( document ).on("realtime-data-received", function(event, report) {
-            // grab the first page
-            var firstPage = report.data[0].breakdown;
-
             // pull the minute totals for each minute
             // formatted data is [100, 200, 300, ...] (newest data last)
-            data = firstPage.map(function(minute) {
-                return minute.breakdown_total[0];
-            }).reverse();
+            data = report.data.map(function(minute) {
+                return parseInt(minute.breakdownTotal[0]);
+            });
 
             trendGraph.redrawGraph(data);
         });
@@ -68,8 +65,8 @@
             if (count == 0) {
                 // return the total count for each page
                 // formatted data is [["PageName", 123], ["PageName 2", 456]] for each page shown in the doughnut
-                data = report.data.map(function(page) {
-                    return [page.name, page.counts];
+                data = report.data[0].breakdown.map(function(page) {
+                    return [page.name, page.counts[0]];
                 });
 
                 donutChart.redrawChart(data);
@@ -82,10 +79,10 @@
             var counts = "0";
             var tbody = $("#data-table").find("tbody");
             $("#data-table").find("tr:gt(0)").remove();
-            for (var i in report.data) {
-                counts = report.data[i].counts.toString().commaSeparate();
+            for (var i in report.data[0].breakdown) {
+                counts = report.data[0].breakdown[i].counts[0].toString().commaSeparate();
                 row = $("#clone-table").find("tr:nth-child(1)").clone();
-                row.find("td:nth-child(1)").html(report.data[i].name);
+                row.find("td:nth-child(1)").html(report.data[0].breakdown[i].name);
                 row.find("td:nth-child(2)").html(counts);
                 row.appendTo(tbody);
             }
@@ -101,14 +98,14 @@
 
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
-
             params = {
                 "reportDescription": {
                     "reportSuiteID": config.reportSuite,
                     "metrics": [{"id": "instances"}],
                     "elements": [{"id": "page"}],
-                    "periodMinutes": 1,
-                    "periodCount": 17
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-17 minutes",
+                    "source": "realtime"
                 }
             };
 
