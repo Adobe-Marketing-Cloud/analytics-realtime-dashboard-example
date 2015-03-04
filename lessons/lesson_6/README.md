@@ -96,7 +96,7 @@ Once again, we need to get our data in the proper format. The Doughnut Chart dat
 ```
 Unlike our last data set, this data does not have to be in any particular order.
 
-1.	The Real-Time data is formatted so that each element is a time period with all the elements recording fo rthat period. So we can loop through the first minute and return the total, along with the name property, to create the array above.
+1.	The Real-Time data is formatted so that each element is a time period with all the elements recording for that period. So we can loop through the first minute and return the total, along with the name property, to create the array above.
 ```js
     data = report.data[0].breakdown.map(function(page) {
         return [page.name, page.counts[0]];
