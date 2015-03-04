@@ -45,7 +45,6 @@ function DoughnutChart(id, config) {
 
   this.redrawChart = function(data) {
     d3.select(id).selectAll('svg').remove();
-    d3.select("#legend").selectAll('svg').remove();
 
     data.splice(this.colors.length);
     json = this.buildHierarchy(data);
@@ -55,6 +54,7 @@ function DoughnutChart(id, config) {
   // Main function to draw and set up the visualization, once we have the data.
   this.createVisualization = function(json) {
     var self = this;
+    self.legend = [];
 
     this.vis = d3.select(id).append("svg:svg")
       .attr("width", this.width)

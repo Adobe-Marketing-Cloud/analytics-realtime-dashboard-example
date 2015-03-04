@@ -64,7 +64,7 @@ We need to populate a table for displaying ranked items in the report response d
     ```
 
     Note that we have defined the second table to be hidden from the browser’s display as its only purpose is to facilitate markup cloning using jQuery.
-    
+
 2.	We need to include some custom prototype functions which will help format the report data.
 
     ```javascript
@@ -79,10 +79,10 @@ We need to populate a table for displaying ranked items in the report response d
         var counts = "0";
         var tbody = $("#data-table").find("tbody");
         $("#data-table").find("tr:gt(0)").remove();
-        for (var i in report.data) {
-            counts = report.data[i].counts.toString().commaSeparate();
+        for (var i in report.data[0].breakdown) {
+            counts = report.data[0].breakdown[i].counts[0].toString().commaSeparate();
             row = $("#clone-table").find("tr:nth-child(1)").clone();
-            row.find("td:nth-child(1)").html(report.data[i].name);
+            row.find("td:nth-child(1)").html(report.data[0].breakdown[i].name);
             row.find("td:nth-child(2)").html(counts);
             row.appendTo(tbody);
         }
@@ -119,9 +119,10 @@ You can automatically update the page by using a function called setInterval() .
                     {  "id": "instances" }
                 ], "elements": [
                     { "id": "page" }
-                ]
+                ],
+                "source": "realtime",
             }
-        };   
+        };
         var interval = 5000; // milliseconds (5 seconds)
         setInterval(makeRealTimeRequest, interval);
     );
@@ -140,7 +141,8 @@ You can automatically update the page by using a function called setInterval() .
                     {  "id": "instances" }
                 ], "elements": [
                     { "id": "page" }
-                ]
+                ],
+                "source": "realtime",
             }
         };
         // set the dashboard to make a report request every 5 seconds

@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="css/main.css" type="text/css" />
 
-    <!--Include the libraries we will be using -->
+    <!-- Include the libraries we will be using -->
     <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
 
     <!-- Insert the links to the the Marketing Javascript SDK to here -->
@@ -21,7 +21,7 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-                console.log('API Response: ' + response.responseText);
+                $('#dashboard').append('API Response: ' + response.responseText);
             });
         });
 

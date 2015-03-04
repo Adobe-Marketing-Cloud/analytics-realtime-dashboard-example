@@ -52,14 +52,4 @@ Here we will use the Marketing Cloud JavaScript SDK to make a basic request to t
 
  This provides the configuration we will use to the make the calls just like we did in the API explorer.
 
-3.	Finally, we will make the API call. To do this, add the following function inside the ready code block:
-
-    ```javascript
-    MarketingCloud.makeRequest(config.username, config.secret, method, params, endpoint, function(response) {
-        console.log('API Response: ' + response.responseText);
-    });
-    ```
-
-    Notice in the step above that the last parameter of makeRequest is a function. This is what you want the script to do after the request is made. In this case, we are going to log to the js console and print out the text of the  response.
-
-4.	Open the Javascript console (Menu > Tools > JavaScript Console)
+3.	Finally, we will make the API call by refreshing the page.

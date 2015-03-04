@@ -89,36 +89,23 @@ $( document ).on("realtime-data-received", function(event, report) {
 ```
 But we still need the data from report to be in the proper format.  For this, we will use a data transform.  It is important to note the data required for the redrawGraph function is an array of numbers for each point that is graphed from left to right.  For example, the array [4, 2,7] would display a graph displaying the values 4, 2, and 7 in that order from left to right.
 
-  3. The Real-Time data is formatted so that each element has the total counts for every minute of data.  So rather than looping through the entire array and adding up all the results for each minute, we only need to look at the first result of our dataset, and pull the minute totals from them.
-```javascript
-var firstPage = report.data[0].breakdown;
-```
-
-  4. Next, we apply a simple array function to pull only the elements we need from each item in the breakdown array.  The breakdown array has an element for each minute returned, and the total counts for that minute are stored in the property breakdown_total.
+  3. The Real-Time data is formatted so that each element represents a period of realtime data, with each of your broken down elements inside it. Rather than looping through the entire array and adding up all the results for each minute, we are just going to look at the most recent minute and display that data. To do this, we apply a simple array function to pull the breakdownTotal (i.e. the total number of instances in that minute for each broken down element).
 ```javascript
 // pull the minute totals for each minute
-data = firstPage.map(function(minute) {
-    return minute.breakdown_total[0];
+data = report.data.map(function(minute) {
+    return parseInt(minute.breakdownTotal[0]);
 });
 ```
 
-  5. Finally, because the data is displayed most recent first and we want it to display from left to right with the most recent data on the right, we need to reverse the array.
-```javascript
-data = data.reverse();
-```
-
-  6. So, putting it all together, you should have something that looks like the following code:
+  4. So, putting it all together, you should have something that looks like the following code:
 ```javascript
 // trends graph
 $( document ).on("realtime-data-received", function(event, report) {
-    // grab the first page
-    var firstPage = report.data[0].breakdown;
-
     // pull the minute totals for each minute
     // formatted data is [100, 200, 300, ...] (newest data last)
-    data = firstPage.map(function(minute) {
-        return minute.breakdown_total[0];
-    }).reverse();
+    data = report.data.map(function(minute) {
+        return parseInt(minute.breakdownTotal[0]);
+    });
 
     trendGraph.redrawGraph(data);
 });
@@ -136,7 +123,9 @@ var params = {
         ], "elements": [
             { "id": "page" }
         ],
-        "periodCount": 17
+        "dateFrom": "-17 minutes",
+        "dateGranularity": "minute:1",
+        "source": "realtime"
     }
 };
 ```

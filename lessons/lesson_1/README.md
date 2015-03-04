@@ -3,19 +3,19 @@ Lesson 1 – Pull your First Real-Time Report
 
 Objectives
 ----
-*	Learn how to see the Real-Time report in Analytics
-*	Learn how to format a Real-Time Report request
-*	Learn how to discover the Real-Time Reporting Configuration
-*	Learn how to save a Real-Time configuration
+*    Learn how to see the Real-Time report in Analytics
+*    Learn how to format a Real-Time Report request
+*    Learn how to discover the Real-Time Reporting Configuration
+*    Learn how to save a Real-Time configuration
 
 Viewing the Data in Adobe Analytics
 -----
-1.	Open your web browser and go to https://my.omniture.com/login/
-2.	Login with the following credentials
-    *	Company: Real Time Dashboard Lab 2014
-    *	User: [see lab presentation]
-    *	Password: [see lab presentation]
-3.	Click on Site Metrics > Real-Time
+1.    Open your web browser and go to https://my.omniture.com/login/
+2.    Login with the following credentials
+    *    Company: Real Time Dashboard Lab 2015
+    *    User: [see lab presentation]
+    *    Password: [see lab presentation]
+3.    Click on Site Metrics > Real-Time
 
 NOTE: Temporary login information can be found at: https://marketing.adobe.com/developer/summit2014
 
@@ -26,20 +26,21 @@ Pulling a Real-Time Report with the API
 
 We are going to use the API explorer to pull a Real-Time report with the API. This will let us see how the API works so we can build a dashboard around it.
 
-1.	In your browser go to https://marketing.adobe.com/developer/en_US/get-started/api-explorer
-2.	Enter the following credentials
-    *	API Username:  ```labuser:Real Time Dashboard Lab 2014```
-    *	Secret: ```7c8d18dd8fb271a9b5dd91c55204305c```
-3.	Select the following options
-    *	Version: 1.3
+1.    In your browser go to https://marketing.adobe.com/developer/en_US/get-started/api-explorer
+2.    Enter the following credentials
+    *    API Username:  ```labuser:Real Time Dashboard Lab```
+    *    Secret: ```75d03af19787f81a6f5016c885bc3541```
+3.    Select the following options
+    *    Version: 1.4
     *   API: Report
-    *	Method: GetRealTimeReport
-4.	Enter the following JSON in the request box
+    *    Method: Run
+4.    Enter the following JSON in the request box
 
     ```javascript
     {
         "reportDescription":{
-            "reportSuiteID":"rtd2014lab",
+            "source": "realtime",
+            "reportSuiteID":"rtd-example",
             "metrics":[
                 {"id":"instances"}
             ]
@@ -47,7 +48,7 @@ We are going to use the API explorer to pull a Real-Time report with the API. Th
     }
     ```
 
-5.	Hit get response.
+5.    Hit get response.
 
     If all went well, you should get a JSON structure back that has a value for each minute for the past five minutes. In this example, instances represent page views for the site over the last five minutes.
 
@@ -60,7 +61,8 @@ There are a lot of options that we can pull with the real-time report. You can f
 ```javascript
 {
     "reportDescription":{
-        "reportSuiteID":"rtd2014lab",
+        "source": "realtime",
+        "reportSuiteID":"rtd-example",
         "metrics":[
             {"id":"instances"}
         ],
@@ -74,48 +76,51 @@ There are a lot of options that we can pull with the real-time report. You can f
 * Top Pages Sorted by Gainers (Those that are failing in the ranking the fastest)
 ```javascript
 {
-	"reportDescription":{
-		"reportSuiteID":"rtd2014lab",
-		"metrics":[
-			{"id":"instances"}
-		],
-		"elements":[
-			{"id":"page"}
-		],
-		"algorithm":"gainers"
-	}
+    "reportDescription":{
+        "source": "realtime",
+        "reportSuiteID":"rtd-example",
+        "metrics":[
+            {"id":"instances"}
+        ],
+        "elements":[
+            {"id":"page"}
+        ],
+        "algorithm":"gainers"
+    }
 }
 ```
 
 * Top Pages Sorted by Losers (Those that are failing in the ranking the fastest)
 ```javascript
 {
-	"reportDescription":{
-		"reportSuiteID":"rtd2014lab",
-		"metrics":[
-			{"id":"instances"}
-		],
-		"elements":[
-			{"id":"page"}
-		],
-		"algorithm":"losers"
-	}
+    "reportDescription":{
+        "source": "realtime",
+        "reportSuiteID":"rtd-example",
+        "metrics":[
+            {"id":"instances"}
+        ],
+        "elements":[
+            {"id":"page"}
+        ],
+        "algorithm":"losers"
+    }
 }
 ```
 
 * Pull the last hour of data for the top pages
 ```javascript
 {
-	"reportDescription":{
-		"reportSuiteID":"rtd2014lab",
-		"metrics":[
-			{"id":"instances"}
-		],
-		"elements":[
-			{"id":"page"}
-		],
-		"periodCount":"60"
-	}
+    "reportDescription":{
+        "source": "realtime",
+        "reportSuiteID":"rtd-example",
+        "metrics":[
+            {"id":"instances"}
+        ],
+        "elements":[
+            {"id":"page"}
+        ],
+        "dateFrom":"-1 hour"
+    }
 }
 ```
 
@@ -124,17 +129,17 @@ There are a few more options that can be found in the documentation. However, th
 Getting the current real-time configuration
 -----
 
-In addition to being able to pull the reports with the API you can also pull the current Real-Time configuration with that API. Additionally you can set the configuration as well. The Docs for that can be found here. https://marketing.adobe.com/developer/en_US/documentation/omniture-administration/r-getrealtimeconfiguration
+In addition to being able to pull the reports with the API you can also pull the current Real-Time configuration with that API. Additionally you can set the configuration as well. The Docs for that can be found here. https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-getrealtimesettings
 
 In the following steps we will pull the Real-Time configuration:
 
-1.	In the API explorer select the following
-    *	Version: 1.4
-    *	API: ReportSuite
-    *	Method: GetRealTimeSettings
-2.	Enter the ReportSuite ID in the rsid_list
-    *	RSID: ```rtd2014lab```
-    *	Hit Get Response
+1.    In the API explorer select the following
+    *    Version: 1.4
+    *    API: ReportSuite
+    *    Method: GetRealTimeSettings
+2.    Enter the ReportSuite ID in the rsid_list
+    *    RSID: ```rtd-example```
+    *    Hit Get Response
 
 Take a look at the configuration for our sample report suite. Each Real-Time metric is organized as a correlation. A correlation is a metric with up to two metrics that you can "break-down" the metric by.
 Configuring your own Real-Time Data

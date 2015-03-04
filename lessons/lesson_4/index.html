@@ -13,14 +13,14 @@
     <!-- Using the Marketing Javascript SDK to pull the data -->
     <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
     <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
-    
+
     <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
-    
+
     <script src="js/config.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        
-        var method ='Report.GetRealTimeReport';
+
+        var method ='Report.Report.Run';
 
         var params = {};
 
@@ -33,10 +33,11 @@
                         { "id": "instances" }
                     ], "elements": [
                         { "id": "page" }
-                    ]
+                    ],
+                    "source": "realtime"
                 }
             };
-            
+
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
                 var total = response.responseJSON.report.totals[0];
                 var numStep = $.animateNumber.numberStepFactories.separator(",");
