@@ -1,12 +1,25 @@
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
+# clear and re-create the out directory
+rm -rf out || exit 0;
+mkdir out;
+
+# COMPILE SCRIPT
+
+# copy everything to the "compile" directory
+rsync -av --progress ./ ./out --exclude out --exclude .git
+
+# copy over the configuration file
+cp out/js/config.js.dist out/js/config.js
+
+# go to the out directory and create a *new* Git repo
+cd out
+git init
+
 # inside this git repo we'll pretend to be a new user
 git config user.name "Travis CI"
 git config user.email "bshafs@gmail.com"
-
-# copy over the configuration file
-cp js/config.js.dist js/config.js
 
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
