@@ -1,0 +1,5 @@
+script: bash ./deploy.sh
+env:
+  global:
+  - GH_REF: github.com/adobe-marketing-cloud/analytics-realtime-dashboard-example.git
+  - secure: MvZw+PxEhMR6zwfKRaBjEVc2C2NeVuTowNYr8SU2VcZx+5s0/zVLBjS1ApTHQXAAt0DAK8lh/fqTaAn9dH1dYANgZsckZ5dZswZPN+uVsT5IYdZBHeU2S1dEBvIvmYOHCgEqwfY6exAba1f1vU8pQoZ7dTiQirrofoXjaWZSW2k=
