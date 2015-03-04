@@ -8,7 +8,7 @@ mkdir out;
 # COMPILE SCRIPT
 
 # copy everything to the "compile" directory
-rsync -av --progress ./ ./out --exclude out --exclude .git
+rsync -av --progress ./ ./out --exclude out --exclude '.git*'
 
 # copy over the configuration file
 cp out/js/config.js.dist out/js/config.js
