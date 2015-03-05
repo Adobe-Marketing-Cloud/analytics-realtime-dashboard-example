@@ -94,6 +94,8 @@
                 row.find("td:nth-child(2)").html(counts[name].toString().commaSeparate());
                 row.appendTo(tbody);
             }
+
+            $("#data-table").show();
         });
 
         // call the realtime api
@@ -153,7 +155,7 @@
         <div id="2half" class="widget half">
           <div id="ranked" class="widget">
               <!-- data table -->
-              <table id="data-table" class="data-table">
+              <table id="data-table" class="data-table" style="display:none">
                   <tbody>
                   <tr>
                       <th>Page</th>
