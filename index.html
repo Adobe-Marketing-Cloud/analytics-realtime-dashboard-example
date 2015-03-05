@@ -61,7 +61,7 @@
         // doughnut chart
         $( document ).on("realtime-data-received", function(event, report) {
             // we only update this chart once a minute
-            count = typeof count == 'undefined' ? 0 : (count + 1) % 12;
+            var count = (count + 1) % 12 | 0;
             if (count == 0) {
                 // return the total count for each page
                 // formatted data is [["PageName", 123], ["PageName 2", 456]] for each page shown in the doughnut
@@ -75,15 +75,23 @@
 
         // data table
         $( document ).on("realtime-data-received", function(event, report) {
-            var row;
-            var counts = "0";
-            var tbody = $("#data-table").find("tbody");
-            $("#data-table").find("tr:gt(0)").remove();
+            // build table data
+            var counts = {};
             for (var i in report.data[0].breakdown) {
-                counts = report.data[0].breakdown[i].counts[0].toString().commaSeparate();
-                row = $("#clone-table").find("tr:nth-child(1)").clone();
-                row.find("td:nth-child(1)").html(report.data[0].breakdown[i].name);
-                row.find("td:nth-child(2)").html(counts);
+                var name = report.data[0].breakdown[i].name;
+                counts[name] = 0;
+                for (var j in report.data) {
+                    counts[name] += parseInt(report.data[j].breakdown[i].counts[0]);
+                }
+            }
+
+            // create the table with the table data
+            $("#data-table").find("tr:gt(0)").remove();
+            var tbody = $("#data-table").find("tbody");
+            for (var name in counts) {
+                var row = $("#clone-table").find("tr:nth-child(1)").clone();
+                row.find("td:nth-child(1)").html(name);
+                row.find("td:nth-child(2)").html(counts[name].toString().commaSeparate());
                 row.appendTo(tbody);
             }
         });
@@ -91,8 +99,10 @@
         // call the realtime api
         var makeRealTimeRequest = function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-                var event = jQuery.Event("realtime-data-received");
-                $( document ).trigger(event, response.responseJSON.report);
+                if (response.status == 200) {
+                    var event = jQuery.Event("realtime-data-received");
+                    $( document ).trigger(event, response.responseJSON.report);
+                }
             });
         };
 
