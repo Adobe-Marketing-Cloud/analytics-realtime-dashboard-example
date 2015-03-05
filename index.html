@@ -61,7 +61,7 @@
         // doughnut chart
         $( document ).on("realtime-data-received", function(event, report) {
             // we only update this chart once a minute
-            count = typeof count == 'undefined' ? 0 : (count + 1) % 12;
+            var count = (count + 1) % 12 | 0;
             if (count == 0) {
                 // return the total count for each page
                 // formatted data is [["PageName", 123], ["PageName 2", 456]] for each page shown in the doughnut
@@ -99,8 +99,10 @@
         // call the realtime api
         var makeRealTimeRequest = function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-                var event = jQuery.Event("realtime-data-received");
-                $( document ).trigger(event, response.responseJSON.report);
+                if (response.status == 200) {
+                    var event = jQuery.Event("realtime-data-received");
+                    $( document ).trigger(event, response.responseJSON.report);
+                }
             });
         };
 
