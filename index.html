@@ -63,37 +63,21 @@
             // we only update this chart once a minute
             var count = (count + 1) % 12 | 0;
             if (count == 0) {
-                // return the total count for each page
-                // formatted data is [["PageName", 123], ["PageName 2", 456]] for each page shown in the doughnut
-                data = report.data[0].breakdown.map(function(page) {
-                    return [page.name, page.counts[0]];
-                });
-
-                donutChart.redrawChart(data);
+                donutChart.redrawChart(report.pageData);
             }
         });
 
         // data table
         $( document ).on("realtime-data-received", function(event, report) {
-            // build table data
-            var counts = {};
-            for (var i in report.data[0].breakdown) {
-                var name = report.data[0].breakdown[i].name;
-                counts[name] = 0;
-                for (var j in report.data) {
-                    counts[name] += parseInt(report.data[j].breakdown[i].counts[0]);
-                }
-            }
-
             // create the table with the table data
             $("#data-table").find("tr:gt(0)").remove();
             var tbody = $("#data-table").find("tbody");
-            for (var name in counts) {
+            $(report.pageData).each(function (i, page) {
                 var row = $("#clone-table").find("tr:nth-child(1)").clone();
-                row.find("td:nth-child(1)").html(name);
-                row.find("td:nth-child(2)").html(counts[name].toString().commaSeparate());
+                row.find("td:nth-child(1)").html(page[0]);
+                row.find("td:nth-child(2)").html(page[1].toString().commaSeparate());
                 row.appendTo(tbody);
-            }
+            });
 
             $("#data-table").show();
         });
@@ -102,11 +86,31 @@
         var makeRealTimeRequest = function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
                 if (response.status == 200) {
-                    var event = jQuery.Event("realtime-data-received");
-                    $( document ).trigger(event, response.responseJSON.report);
+                    var pageData = getPageData(response.responseJSON.report);
+                    if (pageData.length == 0) {
+                        $('#total').html('<span class="no-data">No Data</span>');
+                    } else {
+                        var event = jQuery.Event("realtime-data-received");
+                        response.responseJSON.report.pageData = pageData;
+                        $( document ).trigger(event, response.responseJSON.report);
+                    }
                 }
             });
         };
+
+        var getPageData = function(report) {
+            // return the total count for each page
+            // formatted data is [["PageName", 123], ["PageName 2", 456]]
+            var counts = [];
+            $(report.data).each(function(i, minute) {
+                $(minute.breakdown).each(function (j, page) {
+                    count = parseInt(page.counts[0]) + (counts[j] ? counts[j][1] : 0);
+                    counts[j] = [page.name, count];
+                });
+            });
+
+            return counts;
+        }
 
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {

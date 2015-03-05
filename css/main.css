@@ -138,6 +138,10 @@ Widget should be follows by a twothirds widget */
     font-size: 80px;
     line-height: 100px;
 }
+.no-data {
+    font-size: 60px;
+    color: #777;
+}
 
 /*Mobile Changes*/
 @media (max-width: 640px) {
