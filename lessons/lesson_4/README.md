@@ -21,7 +21,7 @@ Before we can begin to populate multiple items on the page, we need to make it e
     });
     ```
 
-2.	Next, define an event listener to handle this data when the event is broadcast. Our script will later use a separate event listener for each data update task. Initially, we will re-link the total heading to use an event.  Somewhere in the ```<script>``` tag near the ```$( document ).ready()``` function, declare the following JavaScript:
+2.	Next, define an event listener to handle this data when the event is broadcast. Our script will later use a separate event listener for each data update task. Initially, we will re-link the total heading to use an event.  Somewhere in the `<script>` tag near the `$( document ).ready()` function, declare the following JavaScript:
 
     ```javascript
     $( document ).on("realtime-data-received", function(event, report) {
@@ -116,7 +116,7 @@ You can automatically update the page by using a function called setInterval() .
             "reportDescription":{
                 "reportSuiteID": config.reportSuite,
                 "metrics": [
-                    {  "id": "instances" }
+                    {  "id": "pageviews" }
                 ], "elements": [
                     { "id": "page" }
                 ],
@@ -138,7 +138,7 @@ You can automatically update the page by using a function called setInterval() .
             "reportDescription":{
                 "reportSuiteID": config.reportSuite,
                 "metrics": [
-                    {  "id": "instances" }
+                    {  "id": "pageviews" }
                 ], "elements": [
                     { "id": "page" }
                 ],
@@ -154,3 +154,5 @@ You can automatically update the page by using a function called setInterval() .
     ```
 
 5.	Refresh the page in the browser to see that the data is loaded immediately instead of after 5 seconds.
+
+**Continue to [Lesson 5](../lesson_5) »**
