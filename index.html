@@ -23,6 +23,7 @@
 
     <script src="js/config.js" type="text/javascript"></script>
     <script src="js/custom.js" type="text/javascript"></script>
+    <script src="js/jquery.basic_table.js" type="text/javascript"></script>
 
     <script type="text/javascript">
 
@@ -44,6 +45,7 @@
 
         var trendGraph = new AnimatedTrendGraph("#trendGraph", { width: 660, height: 200, delay: 60000});
         var donutChart = new DoughnutChart("#doughnutChart", { width: 300, height: 450 });
+        var basicTable = new BasicTable("#data-table", { columns: ["Page", "Page Views"] });
 
         // number counter
         $( document ).on("realtime-data-received", function(event, report) {
@@ -76,53 +78,43 @@
             // we only update this chart once a minute
             var count = (count + 1) % 12 | 0;
             if (count == 0) {
-                donutChart.redrawChart(report.pageData);
+                donutChart.redrawChart(report.pageTotals);
             }
         });
 
         // data table
         $( document ).on("realtime-data-received", function(event, report) {
-            // create the table with the table data
-            $("#data-table").find("tr:gt(0)").remove();
-            var tbody = $("#data-table").find("tbody");
-            $(report.pageData).each(function (i, page) {
-                var row = $("#clone-table").find("tr:nth-child(1)").clone();
-                row.find("td:nth-child(1)").html(page[0]);
-                row.find("td:nth-child(2)").html(page[1].toString().commaSeparate());
-                row.appendTo(tbody);
-            });
-
-            $("#data-table").show();
+            basicTable.update(report.pageTotals);
         });
 
         // call the realtime api
         var makeRealTimeRequest = function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
                 if (response.status == 200) {
-                    var pageData = getPageData(response.responseJSON.report);
-                    if (pageData.length == 0) {
+                    var report = response.responseJSON.report;
+                    setPageTotals(report);
+                    if (report.pageTotals.length == 0) {
                         $('#total').html('<span class="no-data">No Data</span>');
                     } else {
                         var event = jQuery.Event("realtime-data-received");
-                        response.responseJSON.report.pageData = pageData;
-                        $( document ).trigger(event, response.responseJSON.report);
+                        $( document ).trigger(event, report);
                     }
                 }
             });
         };
 
-        var getPageData = function(report) {
+        var setPageTotals = function(report) {
             // return the total count for each page
             // formatted data is [["PageName", 123], ["PageName 2", 456]]
-            var counts = [];
+            var totals = [];
             $(report.data).each(function(i, minute) {
                 $(minute.breakdown).each(function (j, page) {
-                    count = parseInt(page.counts[0]) + (counts[j] ? counts[j][1] : 0);
-                    counts[j] = [page.name, count];
+                    total = parseInt(page.counts[0]) + (totals[j] ? totals[j][1] : 0);
+                    totals[j] = [page.name, total];
                 });
             });
 
-            return counts;
+            report.pageTotals = totals;
         }
 
         // code to run when the HTML is fully loaded
@@ -160,24 +152,7 @@
         </div>
         <div id="2half" class="widget half">
           <div id="ranked" class="widget">
-              <!-- data table -->
-              <table id="data-table" class="data-table" style="display:none">
-                  <tbody>
-                  <tr>
-                      <th>Page</th>
-                      <th>Page Views</th>
-                  </tr>
-                  </tbody>
-              </table>
-              <!-- Hidden table used for cloning -->
-              <table id="clone-table" style="display: none;">
-                  <tbody>
-                  <tr>
-                      <td>&nbsp;</td>
-                      <td class="counts">&nbsp;</td>
-                  </tr>
-                  </tbody>
-              </table>
+            <div id="data-table">&nbsp;</div>
           </div>
         </div>
     </div>
