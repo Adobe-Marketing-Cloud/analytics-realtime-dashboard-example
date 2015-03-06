@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="../.." >
+    <meta charset="utf-8" />
+    <title>Adobe Lab: Real-Time Dashboard</title>
+
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+
+    <!--Include the libraries we will be using -->
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
+    <!-- Using the Marketing Javascript SDK to pull the data -->
+    <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
+    <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
+
+    <!-- Using Jquery-animateNumber to change the number in a more eye cathcing way -->
+    <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
+
+    <script src="js/config.js" type="text/javascript"></script>
+    <script src="js/custom.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        var method = 'Report.Run';
+
+        var params = {};
+
+        // number counter
+        $( document ).on("realtime-data-received", function(event, report) {
+            // grab the total for this time period
+            var total = report.totals[0];
+
+            // add a comma every thousand numbers (i.e. 1000 => 1,000)
+            var commaStep = $.animateNumber.numberStepFactories.separator(',');
+
+            //Animate the number
+            $('#total').animateNumber({
+                number:total,
+                numberStep: commaStep
+            }, 500);
+        });
+
+        // data table
+        $( document ).on("realtime-data-received", function(event, report) {
+            var row;
+            var counts = "0";
+            var tbody = $("#data-table").find("tbody");
+            $("#data-table").find("tr:gt(0)").remove();
+            for (var i in report.data) {
+                counts = report.data[i].counts.toString().commaSeparate();
+                row = $("#clone-table").find("tr:nth-child(1)").clone();
+                row.find("td:nth-child(1)").html(report.data[i].name);
+                row.find("td:nth-child(2)").html(counts);
+                row.appendTo(tbody);
+            }
+        });
+
+        // call the realtime api
+        var makeRealTimeRequest = function() {
+            MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
+                var event = jQuery.Event("realtime-data-received");
+                $( document ).trigger(event, response.responseJSON.report);
+            });
+        };
+
+        // code to run when the HTML is fully loaded
+        $( document ).ready(function() {
+            params = {
+                "reportDescription":{
+                    "reportSuiteID": config.reportSuite,
+                    "metrics": [
+                        { "id": "instances" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ]
+                }
+            };
+
+            // set the dashboard to make a report request every 5 seconds
+            var time = 5000; // milliseconds
+            var interval = setInterval(makeRealTimeRequest, time);
+            // request the initial report
+            makeRealTimeRequest();
+        });
+
+    </script>
+</head>
+
+<body id="index" class="home">
+    <div id="header">
+        <div id="links" class="content">
+            Header
+        </div>
+    </div>
+    <div id="dashboard" class="content">
+        <div id="numberWidget" class="widget third">
+            <span id="total" class="number"><span class="wait"></span></span>
+            <span class="numberLabel"> Adobe Real-Time Dashboard Made by [INSERT NAME HERE]</span>
+        </div>
+        <div id="trendGraph" class="widget twothirds">
+
+        </div>
+
+        <div id="1half" class="widget half">
+
+        </div>
+        <div id="2half" class="widget half">
+          <div id="ranked" class="widget">
+              <!-- data table -->
+              <table id="data-table" class="data-table">
+                  <tbody>
+                  <tr>
+                      <th>Page</th>
+                      <th>Page Views</th>
+                  </tr>
+                  </tbody>
+              </table>
+              <!-- Hidden table used for cloning -->
+              <table id="clone-table" style="display: none;">
+                  <tbody>
+                  <tr>
+                      <td>&nbsp;</td>
+                      <td class="counts">&nbsp;</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+        </div>
+    </div>
+</body>
+
+</html>
