@@ -119,7 +119,7 @@ var params = {
     "reportDescription":{
         "reportSuiteID": config.reportSuite,
         "metrics": [
-            { "id": "instances" }
+            { "id": "pageviews" }
         ], "elements": [
             { "id": "page" }
         ],
@@ -131,3 +131,5 @@ var params = {
 ```
 
 Now, when you refresh your page, you should see a graph with 15 points that updates continuously. Nice work!
+
+**Continue to [Lesson 6](../lesson_6) »**

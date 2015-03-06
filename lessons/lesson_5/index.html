@@ -24,7 +24,17 @@
 
         var method = 'Report.Run';
 
-        var params = {};
+        var params = {
+            "reportDescription":{
+                "source": "realtime",
+                "reportSuiteID": config.reportSuite,
+                "metrics": [
+                    { "id": "pageviews" }
+                ], "elements": [
+                    { "id": "page" }
+                ]
+            }
+        };
 
         // number counter
         $( document ).on("realtime-data-received", function(event, report) {
@@ -58,6 +68,7 @@
 
         // call the realtime api
         var makeRealTimeRequest = function() {
+            // make the API call
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
                 var event = jQuery.Event("realtime-data-received");
                 $( document ).trigger(event, response.responseJSON.report);
@@ -66,17 +77,6 @@
 
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
-            params = {
-                "reportDescription":{
-                    "reportSuiteID": config.reportSuite,
-                    "metrics": [
-                        { "id": "instances" }
-                    ], "elements": [
-                        { "id": "page" }
-                    ]
-                }
-            };
-
             // set the dashboard to make a report request every 5 seconds
             var time = 5000; // milliseconds
             var interval = setInterval(makeRealTimeRequest, time);
@@ -90,13 +90,12 @@
 <body id="index" class="home">
     <div id="header">
         <div id="links" class="content">
-            Header
+            Adobe Real-Time Dashboard Made by YOU
         </div>
     </div>
     <div id="dashboard" class="content">
         <div id="numberWidget" class="widget third">
             <span id="total" class="number"><span class="wait"></span></span>
-            <span class="numberLabel"> Adobe Real-Time Dashboard Made by [INSERT NAME HERE]</span>
         </div>
         <div id="trendGraph" class="widget twothirds">
 
