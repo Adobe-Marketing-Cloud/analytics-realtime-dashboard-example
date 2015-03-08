@@ -25,6 +25,7 @@ Before we can begin to populate multiple items on the page, we need to make it e
 2.	Next, define an event listener to handle this data when the event is broadcast. Our script will later use a separate event listener for each data update task. Initially, we will re-link the total heading to use an event.  Inside the `<script>`, just above the `$( document ).ready()` function, declare the following JavaScript:
 
     ```javascript
+    // number counter
     $( document ).on("realtime-data-received", function(event, report) {
         var total = report.totals[0];
         var numStep = $.animateNumber.numberStepFactories.separator(",");
@@ -60,6 +61,7 @@ We need to populate a table for displaying ranked items in the report response d
 3.	Finally, define an additional event listener to handle populating the table. Place this new listener definition above the definition we added in the previous exercise. The order of the listeners does not matter.
 
     ```javascript
+    // data table
     $( document ).on("realtime-data-received", function(event, report) {
         // format the data
         totals =[];
@@ -87,7 +89,7 @@ Automatically update the page
 Reloading the browser window each time data needs to be updated isn’t very convenient. This exercise will specify a time interval for which the page should update automatically.
 You can automatically update the page by using a function called `setInterval()` . It runs a function at a specified time interval and will continue to do so until the interval is cleared with `clearInterval()`.
 
-1.	Before we can use `setInterval()`, we need to declare a function to make a real-time API request with a simple call to that function using `makeRealTimeRequest()`. This should be added just below the `$( document ).ready(...)` function.
+1.	Before we can use `setInterval()`, we need to declare a function to make a real-time API request with a simple call to that function using `makeRealTimeRequest()`. This should be added immediately above our closing `</script>` tag, and just after the closing `});` of our `$( document ).ready(...)` function.
 
     ```javascript
     var makeRealTimeRequest = function() {
@@ -98,7 +100,7 @@ You can automatically update the page by using a function called `setInterval()`
     };
     ```
  
-2.	Now that `makeRealTimeRequest()` is defined, we can pass that into the `setInterval()` call. Replace your existing code inside `$( document ).ready(...)` with the following function:
+2.	Now that `makeRealTimeRequest()` is defined, we can pass that into the `setInterval()` call. Replace your existing `$( document ).ready(...)` code with the following function:
 
     ```javascript
     $( document ).ready(function() {
@@ -123,4 +125,4 @@ You can automatically update the page by using a function called `setInterval()`
 
 5.	Refresh the page in the browser to see that the data is loaded immediately instead of after 5 seconds.
 
-**Continue to [Lesson 5](../lesson_5) »**
+**Continue to [Lesson 5](../lesson_5#lesson-5--add-a-trend-line) »**

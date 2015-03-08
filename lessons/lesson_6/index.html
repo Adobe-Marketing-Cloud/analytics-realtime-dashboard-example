@@ -21,7 +21,7 @@
     <script src="js/custom.js" type="text/javascript"></script>
     <script src="js/jquery.basic_table.js" type="text/javascript"></script>
 
-    <!-- Using Jquery-animateNumber to change the number in a more eye cathcing way -->
+    <!-- Using Jquery-animateNumber to change the number in a more eye catching way -->
     <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
 
     <script src="js/config.js" type="text/javascript"></script>
@@ -44,6 +44,7 @@
 
         var trendGraph = new AnimatedTrendGraph("#trendGraph", { width: 660, height: 200, delay: 60000});
 
+        // data table
         $( document ).on("realtime-data-received", function(event, report) {
             // format the data
             totals =[];
@@ -69,6 +70,7 @@
             trendGraph.redrawGraph(data);
         });
 
+        // number counter
         $( document ).on("realtime-data-received", function(event, report) {
             var total = report.totals[0];
             var numStep = $.animateNumber.numberStepFactories.separator(",");

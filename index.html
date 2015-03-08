@@ -12,13 +12,13 @@
     <!-- Using D3 for Charting -->
     <script src="js/d3.v2.js" type="text/javascript" ></script>
     <script src="js/d3.animated_trend.js" type="text/javascript"></script>
-    <script src="js/d3.doughnut.js" type="text/javascript"></script>
+    <script src="js/d3.donut.js" type="text/javascript"></script>
 
     <!-- Using the Marketing Javascript SDK to pull the data -->
     <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
     <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
 
-    <!-- Using Jquery-animateNumber to change the number in a more eye cathcing way -->
+    <!-- Using Jquery-animateNumber to change the number in a more eye catching way -->
     <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
 
     <script src="js/config.js" type="text/javascript"></script>
@@ -39,12 +39,12 @@
                     { "id": "page" }
                 ],
                 "dateGranularity": "minute:1",
-                "dateFrom": "-17 minutes"
+                "dateFrom": "-15 minutes"
             }
         };
 
         var trendGraph = new AnimatedTrendGraph("#trendGraph", { width: 660, height: 200, delay: 60000});
-        var donutChart = new DoughnutChart("#doughnutChart", { width: 300, height: 450 });
+        var donutChart = new DonutChart("#donutChart", { width: 300, height: 450 });
         var basicTable = new BasicTable("#data-table", { columns: ["Page", "Page Views"] });
 
         // number counter
@@ -73,13 +73,10 @@
             trendGraph.redrawGraph(data);
         });
 
-        // doughnut chart
+        // donut chart
         $( document ).on("realtime-data-received", function(event, report) {
             // we only update this chart once a minute
-            var count = (count + 1) % 12 | 0;
-            if (count == 0) {
-                donutChart.redrawChart(report.pageTotals);
-            }
+            donutChart.redrawChart(report.pageTotals);
         });
 
         // data table
@@ -141,7 +138,7 @@
         <div id="trendGraph" class="widget twothirds"></div>
 
         <div id="1half" class="widget half">
-          <div id="doughnutChart">
+          <div id="donutChart">
             <div id="explanation" style="visibility: hidden;">
               <span id="percentage"></span><br/>
               of visitors for

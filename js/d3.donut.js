@@ -7,7 +7,7 @@
 
  Author: Brent Shaffer
 */
-function DoughnutChart(id, config) {
+function DonutChart(id, config) {
   // for event handlers
   var donutchart = this;
 

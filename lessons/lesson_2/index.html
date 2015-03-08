@@ -21,7 +21,7 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
             MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-                $('#dashboard').append('API Response: <pre>' + JSON.stringify(response.responseJSON, undefined, 4) + '</pre>');
+                $('#dashboard').prepend('<p>API Response: <pre>' + JSON.stringify(response.responseJSON, undefined, 4) + '</pre></p>');
             });
         });
 
