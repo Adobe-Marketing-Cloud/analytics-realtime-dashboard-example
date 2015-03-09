@@ -39,7 +39,7 @@ Extract a total from the response
 1.	First, we need to add an HTML element to contain the Real-Time report sum value. Immediately below the `<div id="numberWidget" ...>` tag, insert the following heading:
 
     ```html
-    <h1 id="total">0</h1>
+    <h1 id="total" class="number">0</h1>
     ```
 
 2.	Now that we have a place to publish the result we need to use jQuery to publish the results to the heading tag.  Alter the `MarketingCloud.makeRequest` callback function to the following:

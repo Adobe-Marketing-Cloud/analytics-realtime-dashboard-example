@@ -30,7 +30,7 @@ Our Donut Chart JavaScript class uses the same library (d3) as our trend line cl
         <div id="donutChart">
             <div id="explanation" style="visibility: hidden;">
                 <span id="percentage"></span><br/>
-                  of visitors for
+                  of visitors
             </div>
             <div id="pagelabel">&nbsp;</div>
         </div>
