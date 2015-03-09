@@ -199,16 +199,16 @@ circle {
   height: 200px;
 }
 
-#doughnutChart {
+#donutChart {
   position: relative;
   width: 300px;
 }
 
-#doughnutChart path {
+#donutChart path {
   stroke: #fff;
 }
 
-#doughnutChart {
+#donutChart {
   float: left;
 }
 

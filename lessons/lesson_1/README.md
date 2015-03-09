@@ -112,7 +112,7 @@ There are a lot of options that we can pull with the real-time report. You can f
 }
 ```
 
-> There are a few more [sort options(https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/r-reportdescription-1#section_C4F49ABA1A664EDB8BC48DF8D8F026B0) that can be found in the documentation.
+> There are a few more [sort options](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/r-reportdescription-1#section_C4F49ABA1A664EDB8BC48DF8D8F026B0) that can be found in the documentation.
 
 * Pull the last hour of data for the top pages
 ```javascript
@@ -176,4 +176,4 @@ You can use the method `ReportSuite.SaveRealTimeSettings` to save the same data 
 
 > WARNING: You can overwrite the settings that are configured in the Real-Time UI via the API. So please check the current settings by calling `ReportSutie.GetRealTimeSettings` before overwriting your settings.
 
-**Continue to [Lesson 2](../lesson_2) »**
+**Continue to [Lesson 2](../lesson_2#lesson-2--make-an-api-request-from-an-html-page) »**

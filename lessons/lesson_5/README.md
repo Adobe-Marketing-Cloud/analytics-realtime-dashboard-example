@@ -51,26 +51,7 @@ Use the "realtime-data-received" Event to Update the Graph
 
 Now that we have done all the work to fire an event, we can easily update other parts of the page each time new Real-Time data is received by our dashboard.   This is the perfect place for us to set our data for our trend line.
 
-  1. Add this line below the listener for the number counter so your trendGraph object updates with the new data:
-
-  ```javascript
-  $( document ).on("realtime-data-received", function(event, report) {
-      trendGraph.redrawGraph(data);
-  };
-  ```
-
-But we still need the data from report to be in the proper format.  For this, we will use a data transform so that the data looks like the array `[4, 2, 7]`. This will display a graph displaying the values 4, 2, and 7 in that order from left to right.
-
-  3. We want the total number of pageviews for each five-minute period of our report. To do this, we apply a simple array function to pull the `breakdownTotal` (i.e. the total number of instances in that minute for each broken down element).
-
-  ```javascript
-  // pull the minute totals for each minute
-  data = report.data.map(function(minute) {
-      return parseInt(minute.breakdownTotal[0]);
-  });
-  ```
-
-  4. So, putting it all together, you should have something that looks like the following code:
+  1. Add this block of code next to the other listeners so your trendGraph object updates with the new data:
 
   ```javascript
   // trends graph
@@ -85,26 +66,28 @@ But we still need the data from report to be in the proper format.  For this, we
   });
   ```
 
-Refresh your page and you should see a continuously-updating trended graph.
+  > We want the total number of pageviews for each five-minute period of our report. To do this, we apply a simple array function to pull the `breakdownTotal` (i.e. the total number of instances in that minute for each broken down element).
 
-You'll notice that there are only 5 points being displayed on the graph. This is not as useful as we might want. Let's update the call to ask for 17 data points.  This will give us one to display off the edge on either side, to give us a full graph.
+  2. Refresh your page and you should see a continuously-updating trended graph.
 
-```javascript
-var params = {
-    "reportDescription":{
-        "reportSuiteID": config.reportSuite,
-        "metrics": [
-            { "id": "pageviews" }
-        ], "elements": [
-            { "id": "page" }
-        ],
-        "dateFrom": "-17 minutes",
-        "dateGranularity": "minute:1",
-        "source": "realtime"
-    }
-};
-```
+  3. You may notice the graph is updating slower than we might expect. This is because we are using the RealTime API's default of the last hour for every five-minutes. We need to update our `params` to have a different date range:
+
+  ```javascript
+  var params = {
+      "reportDescription":{
+          "reportSuiteID": config.reportSuite,
+          "metrics": [
+              { "id": "pageviews" }
+          ], "elements": [
+              { "id": "page" }
+          ],
+          "dateFrom": "-15 minutes",
+          "dateGranularity": "minute:1",
+          "source": "realtime"
+      }
+  };
+  ```
 
 Now, when you refresh your page, you should see a graph with 15 points that updates continuously. Nice work!
 
-**Continue to [Lesson 6](../lesson_6) »**
+**Continue to [Lesson 6](../lesson_6#lesson-6--add-a-donut-chart) »**

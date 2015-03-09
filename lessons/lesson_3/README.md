@@ -7,7 +7,7 @@ Objectives
 *	Extract a total from the response
 *	Animate a changing number
 
-Recall from lesson #1 the format of real-time report request. This lesson first requires defining this report request within our JavaScript code.  Please begin by opening the lesson3 index.html in your code editor.
+Recall from lesson #1 the format of real-time report request. This lesson first requires defining this report request within our JavaScript code.  Please begin by opening `lessons/lesson_3/index.html` in your code editor.
 
 1.	First off, we need to make a Real-Time API request to get a total value. Redefine `var params = {};` for your real time report request:
 
@@ -83,4 +83,4 @@ To make the data change events more noticeable we need to animate the value when
 
     >  You can find documentation on the plugin for the Animate Number JQuery Plugin. http://aishek.github.io/jquery-animateNumber/
 
-**Continue to [Lesson 4](../lesson_4) »**
+**Continue to [Lesson 4](../lesson_4#lesson-4--populate-a-table) »**
