@@ -10,7 +10,7 @@ Objectives
 Add the JavaScript Dependencies
 -----
 
-First, we will want to instantiate our graph object.  This object is included in a JavaScript file located in your code directory. The JavaScript classes for graphing Real-Time data included in this example were built by the Adobe Web Services team.  This code is free to use, but is for example purposes only.
+Begin this lesson by opening `lessons/lesson_5/lesson_5.html` in your code editor.
 
   1. First, we want to include additional javascript libraries in our project in order to display our graph. Add these lines directly beneath the jQuery include we’ve already put in the head section of our HTML:
 
