@@ -20,9 +20,9 @@ We will use GitHub to distribute this material to the lab workstations.
 5.	Click *File* > *Open Folder*
 6.	Find the folder which you expanded in the previous steps. It should be in your downloads folder.
 7.  Now, expand the `lessons/lesson_2` folder.
-8. Open up the `index.html` in that folder (`lesson/lesson_2/index.html`)
+8. Open up the `lesson_2.html` in that folder (`lesson/lesson_2/lesson_2.html`)
 9.	Next, click *File* > *Live Preview* to get a preview of the project.
-10.	This will pop open a browser and load up the `index.html` page. This is what we will be building.
+10.	This will pop open a browser and load up the `lesson_2.html` page. This is what we will be building.
 
 Making a basic request to the APIs from JavaScript
 -----

@@ -10,7 +10,7 @@ Objectives
 Trigger an event
 -----
 
-Before we can begin to populate multiple items on the page, we need to make it easier to populate multiple items on the page with one call. It can be more effective to broadcast a data event when the report response is received.  This event allows multiple processes to bind to the event and update their specific content separately.  Begin this lesson by opening lesson #4 index.html in the code editor.
+Before we can begin to populate multiple items on the page, we need to make it easier to populate multiple items on the page with one call. It can be more effective to broadcast a data event when the report response is received.  This event allows multiple processes to bind to the event and update their specific content separately.  Begin this lesson by opening `lessons/lesson_4/lesson_4.html` in the code editor.
 
 1.	We need to first broadcast a real-time data event when the data is received.  jQuery provides a built-in event interface for doing exactly what we need. As in previous examples, we need to make these changes are made to the `MarketingCloud.makeRequest` callback function:
 
