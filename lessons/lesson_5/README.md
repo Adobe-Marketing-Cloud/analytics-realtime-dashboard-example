@@ -75,6 +75,7 @@ Now that we have done all the work to fire an event, we can easily update other 
   ```javascript
   var params = {
       "reportDescription":{
+          "source": "realtime",
           "reportSuiteID": config.reportSuite,
           "metrics": [
               { "id": "pageviews" }
@@ -82,8 +83,7 @@ Now that we have done all the work to fire an event, we can easily update other 
               { "id": "page" }
           ],
           "dateFrom": "-15 minutes",
-          "dateGranularity": "minute:1",
-          "source": "realtime"
+          "dateGranularity": "minute:1"
       }
   };
   ```
