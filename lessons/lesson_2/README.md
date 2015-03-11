@@ -36,14 +36,8 @@ Here we will use the Marketing Cloud JavaScript SDK to make a basic request to t
     <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
     ```
 
-2.	Now that we have the libraries included, we need to specify our API client configuration. Rename the default configuration file in the js directory by copying `js/config.js.dist` to `js/config.js`. Then include the new file:
+2.	Now, refresh the page and you will see the result of our API call.
 
-    ```javascript
-    <script src="js/config.js" type="text/javascript"></script>
-    ```
-
- This provides the configuration we will use to the make the calls just like we did in the API explorer.
-
-3.	Finally, we will make the API call by refreshing the page.
+    > Our Web Services API credentials are in the file `js/config.js`. You can change these credentials to match those for your own company if you'd like to display your company's data on the dashboard instead.
 
 **Continue to [Lesson 3](../lesson_3#lesson-3--display-real-time-data) »**
