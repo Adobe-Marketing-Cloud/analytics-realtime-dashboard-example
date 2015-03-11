@@ -1,15 +1,18 @@
 function BasicTable(id, config) {
-  // for event handlers
-  var table = this;
+  config = config || {};
 
   this.createTable = function () {
+    var columns = "";
+    if (config['columns']) {
+      for (var i in config['columns']) {
+        columns += "<th>"+config['columns'][i] + "</th>\n";
+      }
+    }
+
     var html = "<!-- data table -->                     \
-    <table class=\"data-table\"> \
+    <table class=\"data-table\">                        \
       <tbody>                                           \
-      <tr>                                              \
-          <th>Page</th>                                 \
-          <th>Page Views</th>                           \
-      </tr>                                             \
+      <tr>"+ columns + "</tr>                           \
       </tbody>                                          \
     </table>                                            \
     <!-- Hidden table used for cloning -->              \
