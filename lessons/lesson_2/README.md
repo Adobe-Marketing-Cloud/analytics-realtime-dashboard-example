@@ -36,8 +36,14 @@ Here we will use the Marketing Cloud JavaScript SDK to make a basic request to t
     <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
     ```
 
-2.	Now, refresh the page and you will see the result of our API call.
+2.	Next, we need to add a configuration file containing our Web Services API credentials. Add the following line of code directly below the lines you added in step 1 to pull this in.
 
-    > Our Web Services API credentials are in the file `js/config.js`. You can change these credentials to match those for your own company if you'd like to display your company's data on the dashboard instead.
+    ```javascript
+    <script src="js/config.js" type="text/javascript"></script>
+    ```
+
+    > You can change these credentials to match those for your own company if you'd like to display your company's data on the dashboard instead. You will need to be sure you have the proper `metrics` and `elements` configured for Real Time reporting.
+
+3.	Now, refresh the page and you will see the result of our API call.
 
 **Continue to [Lesson 3](../lesson_3#lesson-3--display-real-time-data) »**
