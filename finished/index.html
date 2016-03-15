@@ -46,7 +46,10 @@
             });
 
             // most popular report
-            report = new RealTimeReport();
+            report = new RealTimeReport({
+                dataElement: "#data-table",
+                refreshInterval: 30
+            });
             report.run({
                 "reportDescription": {
                     "source": "realtime",
@@ -65,7 +68,8 @@
 
             // gainers report
             report = new RealTimeReport({
-                dataElement: "#gainers-table"
+                dataElement: "#gainers-table",
+                refreshInterval: 30
             });
             report.run({
                 "reportDescription": {
@@ -85,7 +89,8 @@
 
             // losers report
             report = new RealTimeReport({
-                dataElement: "#losers-table"
+                dataElement: "#losers-table",
+                refreshInterval: 30
             });
             report.run({
                 "reportDescription": {
