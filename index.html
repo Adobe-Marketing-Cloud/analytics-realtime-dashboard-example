@@ -21,85 +21,8 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
 
-            // spark line and total report
-            var report = new RealTimeReport({
-                dataElement: "#trendGraph",
-                dataElementType: "AnimatedTrendGraph",
-                totalElement: "#total",
-                animateTotal: true,
-                refreshInterval: 10
-            });
-
-            report.run({
-                "reportDescription": {
-                    "source": "realtime",
-                    "reportSuiteID": "rtd-example",
-                    "metrics": [
-                        { "id": "pageviews" }
-                    ], "elements": [
-                        { "id": "page" }
-                    ],
-                    "dateGranularity": "minute:1",
-                    "dateFrom": "-15 minutes"
-                }
-            });
-
-            // most popular report
-            report = new RealTimeReport();
-            report.run({
-                "reportDescription": {
-                    "source": "realtime",
-                    "reportSuiteID": "rtd-example",
-                    "metrics": [
-                        { "id": "pageviews" }
-                    ], "elements": [
-                        { "id": "page" }
-                    ],
-                    "algorithm": "most popular",
-                    "dateGranularity": "minute:60",
-                    "dateFrom": "-20 hours",
-                    "sortMethod": "mostpopular"
-                }
-            });
-
-            // gainers report
-            report = new RealTimeReport({
-                dataElement: "#gainers-table"
-            });
-            report.run({
-                "reportDescription": {
-                    "source": "realtime",
-                    "reportSuiteID": "rtd-example",
-                    "metrics": [
-                        { "id": "pageviews" }
-                    ], "elements": [
-                        { "id": "page" }
-                    ],
-                    "algorithm": "gainers",
-                    "dateGranularity": "minute:1",
-                    "dateFrom": "-60 minutes",
-                    "sortMethod": "gainers"
-                }
-            });
-
-            // losers report
-            report = new RealTimeReport({
-                dataElement: "#losers-table"
-            });
-            report.run({
-                "reportDescription": {
-                    "source": "realtime",
-                    "reportSuiteID": "rtd-example",
-                    "metrics": [
-                        { "id": "pageviews" }
-                    ], "elements": [
-                        { "id": "page" }
-                    ],
-                    "algorithm": "losers",
-                    "dateGranularity": "minute:1",
-                    "dateFrom": "-60 minutes",
-                    "sortMethod": "losers"
-                }
+            MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
+                $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
 
         });
