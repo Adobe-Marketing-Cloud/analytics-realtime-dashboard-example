@@ -16,7 +16,7 @@
     <script src="js/config.js" type="text/javascript"></script>
     <script src="js/custom.js" type="text/javascript"></script>
     <script src="js/jquery.basic_table.js" type="text/javascript"></script>
-    <script src="js/real_time_report.js" type="text/javascript"></script>
+    <script src="js/realtime.js" type="text/javascript"></script>
     <script type="text/javascript">
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
@@ -58,19 +58,19 @@
     </div>
     <div id="trendGraph" class="widget twothirds"></div>
     <div id="1half" class="widget half">
+        <label>Most Popular</label>
         <div id="ranked" class="widget">
-            <label class="hidden">Most Popular</label>
             <div id="data-table">&nbsp;</div>
         </div>
         <div id="legend">&nbsp;</div>
     </div>
     <div id="2half" class="widget half">
+        <label>Gainers</label>
         <div id="gainers" class="widget">
-            <label class="hidden">Gainers</label>
             <div id="gainers-table">&nbsp;</div>
         </div>
+        <label>Losers</label>
         <div id="losers" class="widget">
-            <label class="hidden">Losers</label>
             <div id="losers-table">&nbsp;</div>
         </div>
     </div>
