@@ -10,9 +10,6 @@ if [ "$TRAVIS_REPO_SLUG" = "adobe-marketing-cloud/analytics-realtime-dashboard-e
     # copy everything to the "compile" directory
     rsync -av --progress ./ ./out --exclude out --exclude '.git*'
 
-    # copy over the configuration file
-    cp out/js/config.js.dist out/js/config.js
-
     # go to the out directory and create a *new* Git repo
     cd out
     git init
