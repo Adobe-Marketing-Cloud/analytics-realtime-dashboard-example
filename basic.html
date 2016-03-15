@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Adobe Lab: Real-time Dashboard</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+    <!--Include the libraries we will be using -->
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <!-- Using D3 for Charting -->
+    <script src="js/d3.v2.js" type="text/javascript" ></script>
+    <script src="js/d3.animated_trend.js" type="text/javascript"></script>
+    <!-- Using the Marketing Javascript SDK to pull the data -->
+    <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
+    <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
+    <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
+    <script src="js/config.js" type="text/javascript"></script>
+    <script src="js/custom.js" type="text/javascript"></script>
+    <script src="js/jquery.basic_table.js" type="text/javascript"></script>
+    <script src="js/realtime.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // code to run when the HTML is fully loaded
+        $( document ).ready(function() {
+
+            MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
+                $('#dashboard').html(JSON.stringify(response.responseJSON));
+            });
+
+            /*
+            MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-15 minutes"
+                }
+            }, config.endpoint, function(response) {
+                $('#dashboard').html(JSON.stringify(response.responseJSON));
+            });
+            */
+
+        });
+    </script>
+</head>
+<body id="index" class="home">
+<div id="header">
+    <div id="links" class="content">
+        Adobe Real-time Dashboard Made by YOU
+    </div>
+</div>
+<div id="dashboard" class="content">
+    <div id="numberWidget" class="widget third">
+        <span id="total" class="number"><span class="wait"></span></span>
+    </div>
+    <div id="trendGraph" class="widget twothirds"></div>
+    <div id="1half" class="widget half">
+        <label>Most Popular</label>
+        <div id="ranked" class="widget">
+            <div id="data-table">&nbsp;</div>
+        </div>
+        <div id="legend">&nbsp;</div>
+    </div>
+    <div id="2half" class="widget half">
+        <label>Gainers</label>
+        <div id="gainers" class="widget">
+            <div id="gainers-table">&nbsp;</div>
+        </div>
+        <label>Losers</label>
+        <div id="losers" class="widget">
+            <div id="losers-table">&nbsp;</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

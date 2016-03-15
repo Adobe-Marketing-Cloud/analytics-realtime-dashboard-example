@@ -1,4 +1,4 @@
-Lesson 2 – Make an API request from an HTML page
+Lesson 2 – Getting Real-time Reports via a Web Page Using JavaScript
 =====
 
 Objectives
@@ -16,34 +16,86 @@ We will use GitHub to distribute this material to the lab workstations.
 1.	Open Google Chrome and browse to <a href="http://git.io/realtimelab" target="_blank">`http://git.io/realtimelab`</a>
 2.	Click the button labeled "Download ZIP" to download the zip package
 3.  Locate the zip file and expand the package
-4.  Open the application "Brackets" from the start (WIN) or application (MAC) menu. We'll use this application to work from
+4.  Open the application "Brackets" from the application menu. We'll use this application to work from
 5.	Click *File* > *Open Folder*
 6.	Find the folder which you expanded in the previous steps. It should be in your downloads folder.
-7.  Now, expand the `lessons/lesson_2` folder.
-8. Open up the `lesson_2.html` in that folder (`lesson/lesson_2/lesson_2.html`)
-9.	Next, click *File* > *Live Preview* to get a preview of the project.
-10.	This will pop open a browser and load up the `lesson_2.html` page. This is what we will be building.
+7.  Open up the `index.html` in that folder (`index.html`). This is what we will be using to create our dashboard page.
+
+Understanding the JavaScript libraries used in this example
+-----
+
+Before we starting editing the file, we want to take a quick look at the JavaScript libraries used to help create this example.
+
+1. `js/jquery-2.1.0.min.js` is a common JavaScript library used by the other libraries. We are also using the `js/jquery-animateNumber/jquery.animateNumber.min.js` and `js/jquery.basic_table.js` JQuery plugins for data display.
+
+	```html
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
+    <script src="js/jquery.basic_table.js" type="text/javascript"></script>    
+    ```
+
+2.	`js/d3.v2.js` is a charting library we will use to make graphs.
+
+	```html
+    <script src="js/d3.v2.js" type="text/javascript" ></script>
+    <script src="js/d3.animated_trend.js" type="text/javascript"></script>
+    ```
+
+3.	`js/marketing-cloud-javascript-sdk/marketing_cloud.js` is another Adobe library that simplfies interaction with the Analytics API. `js/wsse.js` is also an Adobe library that handles the auththenication with the Analytics API. The source for these libraries can be found [here](https://github.com/Adobe-Marketing-Cloud/marketing-cloud-javascript-sdk). The credentials used in this example are stored in the `config.js` file and are the same we used during lesson 1 with the API explorer.
+
+	```html
+    <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
+    <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
+    <script src="js/config.js" type="text/javascript"></script>    
+    ```
+
+4.	`js/custom.js` is a library we created for this example that has some convenience methods for working with strings and arrays.
+
+	```html
+	<script src="js/custom.js" type="text/javascript"></script>
+	```
+
+5.	`js/realtime.js` is another library written for this example that encapsulates formatting and display logic for the Real-time report response data.
+    
+	```html    
+    <script src="js/realtime.js" type="text/javascript"></script>
+    ```
 
 Making a basic request to the APIs from JavaScript
 -----
 
-Here we will use the Marketing Cloud JavaScript SDK to make a basic request to the APIs.
+We will use JavaScript on the page to request a Real-time report and display the raw result.
 
-1.	Inside the `<head>` tag, below the jQuery script tag, add `wsse.js` and `marketing_cloud.js` to the html where indicated. Be sure to include the `wsse.js` file first otherwise it will not work.
+1.	Click *File* > *Live Preview*. This will execute the page as it currently stands. You will see a list of report suites. These are retrieved from the Analytics API using the Company.GetReportSuites API call. We want to remove this API call and replace it with a call to get a Real-time report.
 
-    ```javascript
-    <script src="js/marketing-cloud-javascript-sdk/wsse.js" type="text/javascript"></script>
-    <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
-    ```
+2.	Comment out or delete the code that calls `Company.GetReportSuites`:
 
-2.	Next, we need to add a configuration file containing our Web Services API credentials. Add the following line of code directly below the lines you added in step 1 to pull this in.
+	```javascript
+    MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
+        $('#dashboard').html(JSON.stringify(response.responseJSON));
+    });
+	```
 
-    ```javascript
-    <script src="js/config.js" type="text/javascript"></script>
-    ```
+3.	Uncomment the call to `Report.Run` by removing the /* and */ surrounding it:
 
-    > You can change these credentials to match those for your own company if you'd like to display your company's data on the dashboard instead. You will need to be sure you have the proper `metrics` and `elements` configured for Real Time reporting.
+	```javascript
+    MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
+        "reportDescription": {
+            "source": "realtime",
+            "reportSuiteID": "rtd-example",
+            "metrics": [
+                { "id": "pageviews" }
+            ], "elements": [
+                { "id": "page" }
+            ],
+            "dateGranularity": "minute:1",
+            "dateFrom": "-15 minutes"
+        }
+    }, config.endpoint, function(response) {
+        $('#dashboard').html(JSON.stringify(response.responseJSON));
+    });
+	```
 
-3.	Now, refresh the page and you will see the result of our API call.
+4.  Click *File* > *Live Preview* and you should see the raw result of the Real-time report in much the same format as we saw when using the API explorer.
 
-**Continue to [Lesson 3](../lesson_3#lesson-3--display-real-time-data) »**
+**Continue to [Lesson 3](../lesson_3#using-real-time-report-data-to-create-a-dashboard) »**

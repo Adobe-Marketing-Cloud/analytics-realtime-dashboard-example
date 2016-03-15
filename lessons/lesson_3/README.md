@@ -1,86 +1,160 @@
-Lesson 3 – Display Real-Time Data
+Lesson 3 – Using Real-time Report Data to Create a Dashboard
 =====
 
 Objectives
 -----
-*	Define and request a real-time report
-*	Extract a total from the response
-*	Animate a changing number
+*   Populating a simple table with Real-time report data
+*   Adding additional tables with sorted data
+*   Calculating and displaying totals from the report data
+*	Displaying a line graph using the trended report data
 
-Recall from lesson #1 the format of real-time report request. This lesson first requires defining this report request within our JavaScript code.  Please begin by opening `lessons/lesson_3/lesson_3.html` in your code editor.
+Put the data in a table
+-----
 
-1.	First off, we need to make a Real-Time API request to get a total value. Redefine `var params = {};` for your real time report request:
+Recall from lesson #2 that we simply displayed the raw report response on the page. This is very hard to read. We want to parse through the data and stick it in an HTML table.
+
+1. Remove the call to `Report.Run` that we uncommented the last lesson and uncomment the next section:
 
     ```javascript
-    var params = {
-        "reportDescription":{
-            "reportSuiteID": config.reportSuite,
-            "metrics": [
-                {  "id": "pageviews" }
-            ], "elements": [
-                { "id": "page" }
-            ],
-            "source": "realtime",
+    runRealTimeReport(
+        {
+            "reportDescription": {
+                "source": "realtime",
+                "reportSuiteID": "rtd-example",
+                "metrics": [
+                    { "id": "pageviews" }
+                ], "elements": [
+                    { "id": "page" }
+                ],
+                "dateGranularity": "minute:1",
+                "dateFrom": "-15 minutes"
+            },
+            {
+                dataElement: "#data-table",
+                dataElementType: "BasicTable",
+                totalElement: null,
+                animateTotal: false,
+                refreshInterval: null
+            }            
         }
-    };
+    );
     ```
 
-2.	In order to make the proper request to the API, we need to change the API method being called. Change `var method` from `"Company.GetReportSuites"` to `"Report.Run"`
+2. Click *File* > *Live Preview*. You should see the data in a tabluar format on the page. The `runRealTimeReport` function executes the report the same way we did before and then formats the data and places it in the `#data-table` page element.
 
-    ```javascript
-    var method = 'Report.Run';
-    ```
-
-3.	Refresh the page to see the real time report data.
-
-Extract a total from the response
+Change the report to update periodically
 -----
 
-1.	First, we need to add an HTML element to contain the Real-Time report sum value. Immediately below the `<div id="numberWidget" ...>` tag, insert the following heading:
+Right now, the report only runs once when the page is loaded. Let's change it to refresh automatically every 10 seconds.
 
-    ```html
-    <h1 id="total" class="number">0</h1>
-    ```
-
-2.	Now that we have a place to publish the result we need to use jQuery to publish the results to the heading tag.  Alter the `MarketingCloud.makeRequest` callback function to the following:
+1. Modify the `refreshInterval` parameter to:
 
     ```javascript
-    // make the API call
-    MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-        var total = response.responseJSON.report.totals[0];
-        $("#total").html(total);
-    });
+    refreshInterval: 10
     ```
 
-3.	Open the page in the browser to see the value dynamically change to the report total.
+2. Click *File* > *Live Preview*.  If you wait 10 seconds you should see the data update itself.
 
-Animate a changing number
+Showing an animated total value
 -----
 
-To make the data change events more noticeable we need to animate the value when it changes. This lesson will demonstrate how to animate the report data being returned.
+The report data contains a total. Let's display it in a large animated format.
 
-1.	There exists a jQuery plugin to animate value changes. Include this plugin by adding this script tag to a new line inside the `<head>` tag immediately below the existing jQuery script tag (`<script src="js/jquery-2.1.0.min.js...>`):
-
-    ```html
-    <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
-    ```
-
-2.	Use the animate plugin in the `MarketingCloud.makeRequest` callback function.
+1. Modify the `totalElement` and `animateTotal` parameters to:
 
     ```javascript
-    // make the API call
-    MarketingCloud.makeRequest(config.username, config.secret, method, params, config.endpoint, function(response) {
-        var total = response.responseJSON.report.totals[0];
-        var numStep = $.animateNumber.numberStepFactories.separator(",");
-        $("#total").animateNumber({
-            number:total,
-            numberStep: numStep
-        }, 500);
-    });
+    totalElement: "#total",
+    animateTotla: true,
     ```
 
-3.  Reload the page in the browser to see the animation.
+2. Click *File* > *Live Preview*.  The `runRealTimeReport` function grabs to total from the data, places it in the `#total` page element, and animates it using a JQuery plugin.
 
-    >  You can find documentation on the plugin for the Animate Number JQuery Plugin. http://aishek.github.io/jquery-animateNumber/
+Changing the table to a line graph
+-----
 
-**Continue to [Lesson 4](../lesson_4#lesson-4--populate-a-table) »**
+This report looks at the last 15 minutes of data so let's use it to power a line graph. 
+
+1. Before we modify this report, let's make a copy of it. Copy the `runRealTimeReport` function call and 
+   paste it directly below itself. We will use it in the next steps.
+
+2. Modify the `dataElement` and `dataElementType` parameters of the block you just copied to:
+
+    ```javascript
+    dataElement: "#trendGraph",
+    dataElementType" "AnimatedTrendGraph",
+    ```
+
+2. Click *File* > *Live Preview*.  The data is now formatted as displayed as a trended line graph.
+
+
+Add a table showing *gainers*
+-----
+
+1. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+
+    ```javascript
+    "algorithm": "gainers",
+    "dateGranularity": "minute:1",
+    "dateFrom": "-60 minutes",
+    "sortMethod": "gainers"
+    ```
+
+2. In the same block, change the `dataElement` parameter to:
+
+    ```javascript
+    "dataElement": "#gainers-table"
+    ```
+
+3. Let's increase the refresh interval for this report. Change the `refreshInterval` parameter to:
+
+    ```javascript
+    refreshInterval: 30
+    ```
+
+4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by gainers in addition to the line graph.
+
+
+Add a table showing *losers*
+-----
+
+1. Copy the block for the gainers report and paste it below itself.
+
+2. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+
+    ```javascript
+    "algorithm": "losers",
+    "dateGranularity": "minute:1",
+    "dateFrom": "-60 minutes",
+    "sortMethod": "losers"
+    ```
+
+3. In the same block, change the `dataElement` parameter to:
+
+    ```javascript
+    "dataElement": "#losers-table"
+    ```
+
+4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by losers in addition to the line graph and losers table.
+
+
+Add a table showing *most popular* pages
+-----
+
+1. Copy the block for the losers report and paste it below itself.
+
+2. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `dateGranlularity`, `dateFrom`,  and `sortMethod` parameters. Notice the lack of a space when setting `sortMethod` to `mostpopular`. It is also the default value and could be removed as well.
+
+    ```javascript
+    "algorithm": "most popular",
+    "dateGranularity": "minute:1",
+    "dateFrom": "-60 minutes",
+    "sortMethod": "mostpopular"
+    ```
+
+3. In the same block, change the `dataElement` parameter to:
+
+    ```javascript
+    "dataElement": "#data-table"
+    ```
+
+4. Click *File* > *Live Preview*.

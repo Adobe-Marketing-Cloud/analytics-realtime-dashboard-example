@@ -1,30 +1,27 @@
-Lesson 1 – Pull your First Real-Time Report
+Lesson 1 – Getting Real-time Reports via the Analytics API
 ====
 
 Objectives
 ----
-*    Access the Real-Time report in Analytics
-*    Create a Real-Time Report request
-*    Discover the Real-Time Reporting Configuration
-*    Save a Real-Time configuration
+*    Access the Real-time report in Analytics
+*    Create a Real-time Report request
 
 Viewing the Data in Adobe Analytics
 -----
 1.    Open your web browser and go to <a href="https://my.omniture.com/login/" target="_blank">`my.omniture.com`</a>
-2.    Login with the following credentials
+2.    Get username and password from <a href="https://marketing.adobe.com/developer/summitlab" target="_blank">`https://marketing.adobe.com/developer/summitlab`</a>
+3.    Login with the following credentials
     *    *Company*: Real Time Dashboard Lab
-    *    *User*: [see lab guide]
-    *    *Password*: [see lab guide]
-3.    Click on *View All Reports* > *Metrics* > *Real-Time*
-
-> NOTE: Temporary login information can be found at: <a href="http://adobe.ly/1ERG5ID" target="_blank">`http://adobe.ly/1ERG5ID`</a>
+    *    *User*: [use username from step 2]
+    *    *Password*: [use password from step 2]
+4.    Click on *View All Reports* > *Metrics* > *Real-time*
 
 Take a look around. Everything you see, and a little more, can be pulled via an API.
 
-Pulling a Real-Time Report with the API
+Pulling a Real-time Report with the API
 -----
 
-We are going to use the API explorer to pull a Real-Time report with the API. This will let us see how the API works so we can build a dashboard around it.
+We are going to use the API explorer to pull a Real-time report with the API. This will let us see how the API works so we can build a dashboard around it.
 
 1.    In your browser go to <a href="https://marketing.adobe.com/developer/api-explorer" target="_blank">`https://marketing.adobe.com/developer/api-explorer`</a>
 
@@ -55,12 +52,12 @@ We are going to use the API explorer to pull a Real-Time report with the API. Th
 
 5.    click "Get Response".
 
-    If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "pageviews" represent traffic for the site over each time period.
+    If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "pageviews" represents traffic for the site over each time period.
 
 Pulling a More Interesting Report
 -----
 
-There are a lot of options that we can pull with the real-time report. You can find the full documentation [here](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time). Let’s add a few more options to our request above.  Try out the requests below and take a look at that JSON you get back.
+There are many options that can be customized in a Real-time report. You can find the full documentation [here](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time). Let’s add a few more options to our request above.  Try out the requests below and take a look at that JSON you get back:
 
 * Top pages
 ```javascript
@@ -151,29 +148,13 @@ There are a lot of options that we can pull with the real-time report. You can f
 
 > You can read more about [dateGranularity](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time#section_751CF36659DD4BFDA85554EC4368C464) and other options in the documentation.
 
-Getting the current real-time configuration
+Learning about Real-time configuration
 -----
 
-In addition to being able to pull the reports with the API you can also pull the current Real-Time configuration with that API. Additionally you can set the configuration as well. The Docs for that can be found [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-getrealtimesettings)
+Real-time reports must be configured ahead of time in order to run.
 
-In the following steps we will pull the Real-Time configuration:
+You can view and modify the current Real-time configuration with the API. The documentation for that can be found [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-getrealtimesettings) and [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-saverealtimesettings).
 
-1.    In the API explorer select the following
-    *    *API*: `ReportSuite`
-    *    *Method*: `GetRealTimeSettings`
-2.    Add our report suite ID (`rtd-example`) to `rsid_list`:
-```javascript
-{
-    "rsid_list": [
-        "rtd-example"
-    ]
-}
-```
-
-Take a look at the configuration for our sample report suite. Each Real-Time metric is organized as a correlation. A correlation is a metric with up to two metrics that you can "break-down" the metric by.
-Configuring your own Real-Time Data
-You can use the method `ReportSuite.SaveRealTimeSettings` to save the same data structure to enable the real-time metrics. The documentation can be found [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-saverealtimesettings).
-
-> WARNING: You can overwrite the settings that are configured in the Real-Time UI via the API. So please check the current settings by calling `ReportSutie.GetRealTimeSettings` before overwriting your settings.
+We will not cover viewing or setting the configuration in this lab, but just know it is something you need to think about.
 
 **Continue to [Lesson 2](../lesson_2#lesson-2--make-an-api-request-from-an-html-page) »**

@@ -103,6 +103,14 @@ table tr:hover td {
     width: 100%;
 }
 
+.gainers-table {
+    width: 100%;
+}
+
+.losers-table {
+    width: 100%;
+}
+
 /* Report Styles */
 .widget {
     padding: 10px;
@@ -271,4 +279,45 @@ circle {
   -webkit-background-size: auto 100% auto 100%;
   -moz-background-size: auto 100% auto 100%;
   background-size: auto 100% auto 100%;
+}
+
+.trendUp {
+    background-repeat: no-repeat;
+    width: 14px;
+    background-image: url(../images/arrow-circle-bottom.svg);
+    -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+    -moz-transform: rotate(180deg);        /* FF */
+    -o-transform: rotate(180deg);          /* Opera */
+    -ms-transform: rotate(180deg);         /* IE9 */
+    transform: rotate(180deg);             /* W3C compliant browsers */
+    display: inline-block;
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
+    background-size: auto 100%;
+    -webkit-background-size: auto 100% auto 100%;
+    -moz-background-size: auto 100% auto 100%;
+    background-size: auto 100% auto 100%;
+}
+
+.trendDown {
+    background-repeat: no-repeat;
+    width: 14px;
+    background-image: url(../images/arrow-circle-bottom.svg);
+    display: inline-block;
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
+    background-size: auto 100%;
+    -webkit-background-size: auto 100% auto 100%;
+    -moz-background-size: auto 100% auto 100%;
+    background-size: auto 100% auto 100%;
+}
+
+.tableValue {
+    width: 75%;
+}
+
+.hidden {
+    display: none;
 }
