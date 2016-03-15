@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Adobe Lab: Real-time Dashboard</title>
+    <base href="../"/>
     <link rel="stylesheet" href="css/main.css" type="text/css" />
     <!--Include the libraries we will be using -->
     <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
@@ -21,12 +22,16 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
 
-            MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
-                $('#dashboard').html(JSON.stringify(response.responseJSON));
+            // spark line and total report
+            var report = new RealTimeReport({
+                dataElement: "#trendGraph",
+                dataElementType: "AnimatedTrendGraph",
+                totalElement: "#total",
+                animateTotal: true,
+                refreshInterval: 10
             });
 
-            /*
-            MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
+            report.run({
                 "reportDescription": {
                     "source": "realtime",
                     "reportSuiteID": "rtd-example",
@@ -38,10 +43,65 @@
                     "dateGranularity": "minute:1",
                     "dateFrom": "-15 minutes"
                 }
-            }, config.endpoint, function(response) {
-                $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
-            */
+
+            // most popular report
+            report = new RealTimeReport();
+            report.run({
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "algorithm": "most popular",
+                    "dateGranularity": "minute:60",
+                    "dateFrom": "-20 hours",
+                    "sortMethod": "mostpopular"
+                }
+            });
+
+            // gainers report
+            report = new RealTimeReport({
+                dataElement: "#gainers-table"
+            });
+            report.run({
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "algorithm": "gainers",
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-60 minutes",
+                    "sortMethod": "gainers"
+                }
+            });
+
+            // losers report
+            report = new RealTimeReport({
+                dataElement: "#losers-table"
+            });
+            report.run({
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "algorithm": "losers",
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-60 minutes",
+                    "sortMethod": "losers"
+                }
+            });
 
         });
     </script>
