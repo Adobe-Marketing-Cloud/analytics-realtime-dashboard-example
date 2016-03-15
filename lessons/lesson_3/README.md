@@ -62,7 +62,7 @@ The report data contains a total. Let's display it in a large animated format.
 
     ```javascript
     totalElement: "#total",
-    animateTotla: true,
+    animateTotal: true,
     ```
 
 2. Click *File* > *Live Preview*.  The `report.run` function grabs to total from the data, places it in the `#total` page element, and animates it using a JQuery plugin.
@@ -79,7 +79,7 @@ This report looks at the last 15 minutes of data so let's use it to power a line
 
     ```javascript
     dataElement: "#trendGraph",
-    dataElementType" "AnimatedTrendGraph",
+    dataElementType: "AnimatedTrendGraph",
     ```
 
 2. Click *File* > *Live Preview*.  The data is now formatted as displayed as a trended line graph.
@@ -100,7 +100,7 @@ Add a table showing *gainers*
 2. In the same block, change the `dataElement` parameter to:
 
     ```javascript
-    "dataElement": "#gainers-table"
+    dataElement: "#gainers-table"
     ```
 
 3. Let's increase the refresh interval for this report. Change the `refreshInterval` parameter to:
@@ -129,7 +129,7 @@ Add a table showing *losers*
 3. In the same block, change the `dataElement` parameter to:
 
     ```javascript
-    "dataElement": "#losers-table"
+    dataElement: "#losers-table"
     ```
 
 4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by losers in addition to the line graph and losers table.
@@ -152,7 +152,7 @@ Add a table showing *most popular* pages
 3. In the same block, change the `dataElement` parameter to:
 
     ```javascript
-    "dataElement": "#data-table"
+    dataElement: "#data-table"
     ```
 
 4. Click *File* > *Live Preview*.
