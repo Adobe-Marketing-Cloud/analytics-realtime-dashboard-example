@@ -25,6 +25,24 @@
                 $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
 
+            /*
+            MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-15 minutes"
+                }
+            }, config.endpoint, function(response) {
+                $('#dashboard').html(JSON.stringify(response.responseJSON));
+            });
+            */
+
         });
     </script>
 </head>

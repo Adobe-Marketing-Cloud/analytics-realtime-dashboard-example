@@ -16,31 +16,29 @@ Recall from lesson #2 that we simply displayed the raw report response on the pa
 1. Remove the call to `Report.Run` that we uncommented the last lesson and uncomment the next section:
 
     ```javascript
-    runRealTimeReport(
-        {
-            "reportDescription": {
-                "source": "realtime",
-                "reportSuiteID": "rtd-example",
-                "metrics": [
-                    { "id": "pageviews" }
-                ], "elements": [
-                    { "id": "page" }
-                ],
-                "dateGranularity": "minute:1",
-                "dateFrom": "-15 minutes"
-            },
-            {
-                dataElement: "#data-table",
-                dataElementType: "BasicTable",
-                totalElement: null,
-                animateTotal: false,
-                refreshInterval: null
-            }            
+    var report = new RealTimeReport({
+        dataElement: "#data-table",
+        dataElementType: "BasicTable",
+        totalElement: "null",
+        animateTotal: false,
+        refreshInterval: null
+    });
+    report.run({
+        "reportDescription": {
+            "source": "realtime",
+            "reportSuiteID": "rtd-example",
+            "metrics": [
+                { "id": "pageviews" }
+            ], "elements": [
+                { "id": "page" }
+            ],
+            "dateGranularity": "minute:1",
+            "dateFrom": "-15 minutes"
         }
-    );
+    });
     ```
 
-2. Click *File* > *Live Preview*. You should see the data in a tabluar format on the page. The `runRealTimeReport` function executes the report the same way we did before and then formats the data and places it in the `#data-table` page element.
+2. Click *File* > *Live Preview*. You should see the data in a tabular format on the page. The `report.run` function executes the report the same way we did before and then formats the data and places it in the `#data-table` page element.
 
 Change the report to update periodically
 -----
@@ -67,14 +65,14 @@ The report data contains a total. Let's display it in a large animated format.
     animateTotla: true,
     ```
 
-2. Click *File* > *Live Preview*.  The `runRealTimeReport` function grabs to total from the data, places it in the `#total` page element, and animates it using a JQuery plugin.
+2. Click *File* > *Live Preview*.  The `report.run` function grabs to total from the data, places it in the `#total` page element, and animates it using a JQuery plugin.
 
 Changing the table to a line graph
 -----
 
 This report looks at the last 15 minutes of data so let's use it to power a line graph. 
 
-1. Before we modify this report, let's make a copy of it. Copy the `runRealTimeReport` function call and 
+1. Before we modify this report, let's make a copy of it. Copy the instance of `var report = new RealTimeReport();` and the `report.run` function call and
    paste it directly below itself. We will use it in the next steps.
 
 2. Modify the `dataElement` and `dataElementType` parameters of the block you just copied to:
@@ -90,7 +88,7 @@ This report looks at the last 15 minutes of data so let's use it to power a line
 Add a table showing *gainers*
 -----
 
-1. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+1. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
 
     ```javascript
     "algorithm": "gainers",
@@ -119,7 +117,7 @@ Add a table showing *losers*
 
 1. Copy the block for the gainers report and paste it below itself.
 
-2. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
 
     ```javascript
     "algorithm": "losers",
@@ -142,7 +140,7 @@ Add a table showing *most popular* pages
 
 1. Copy the block for the losers report and paste it below itself.
 
-2. In the `runRealTimeReport` block you just pasted, modify the `algorithm`, `dateGranlularity`, `dateFrom`,  and `sortMethod` parameters. Notice the lack of a space when setting `sortMethod` to `mostpopular`. It is also the default value and could be removed as well.
+2. In the `report.run` block you just pasted, modify the `algorithm`, `dateGranlularity`, `dateFrom`,  and `sortMethod` parameters. Notice the lack of a space when setting `sortMethod` to `mostpopular`. It is also the default value and could be removed as well.
 
     ```javascript
     "algorithm": "most popular",
