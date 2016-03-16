@@ -55,7 +55,7 @@ Before we starting editing the file, we want to take a quick look at the JavaScr
 	<script src="js/custom.js" type="text/javascript"></script>
 	```
 
-5.	`js/realtime.js` is another library written for this example that encapsulates formatting and display logic for the Real-time report response data.
+5.	`js/real_time_report.js` is another library written for this example that encapsulates formatting and display logic for the Real-time report response data.
     
 	```html    
     <script src="js/real_time_report.js" type="text/javascript"></script>
