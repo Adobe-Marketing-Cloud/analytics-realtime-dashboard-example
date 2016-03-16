@@ -141,7 +141,7 @@ There are many options that can be customized in a Real-time report. You can fin
             {"id":"page"}
         ],
         "dateFrom":"-12 hours",
-        "dateGranularity":"minute:60"
+        "dateGranularity":"hour"
     }
 }
 ```
