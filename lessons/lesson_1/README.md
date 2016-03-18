@@ -29,8 +29,8 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
 
 2.    Enter the following credentials
 
-    *    *API Username*:  `labuser:Real Time Dashboard Lab`
-    *    *Secret*: `cefbf493bca6277b3a67866dd3a723c0`
+    *    *API Username*:  [use API login username from step 2 above]
+    *    *Secret*: [use API login secret from step 2 above]
 
 3.    Select the following options
     *    *API*: `Report`
