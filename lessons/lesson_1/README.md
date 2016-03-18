@@ -23,6 +23,8 @@ Pulling a Real-time Report with the API
 
 We are going to use the API explorer to pull a Real-time report with the API. This will let us see how the API works so we can build a dashboard around it.
 
+> We've provided a set of test credentials for the purposes of this lab. To obtain credentials for your own account, follow the tutorial [here](https://marketing.adobe.com/developer/get-started/enterprise-api/c-get-web-service-access-to-the-enterprise-api).
+
 1.    In your browser go to <a href="https://marketing.adobe.com/developer/api-explorer" target="_blank">`https://marketing.adobe.com/developer/api-explorer`</a>
 
 2.    Enter the following credentials
@@ -59,22 +61,6 @@ Pulling a More Interesting Report
 
 There are many options that can be customized in a Real-time report. You can find the full documentation [here](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time). Let’s add a few more options to our request above.  Try out the requests below and take a look at that JSON you get back:
 
-* Top pages
-```javascript
-{
-    "reportDescription":{
-        "source": "realtime",
-        "reportSuiteID":"rtd-example",
-        "metrics":[
-            {"id":"pageviews"}
-        ],
-        "elements":[
-            {"id":"page"}
-        ]
-    }
-}
-```
-
 * Top Pages Sorted by Gainers (Those that are rising in the ranking the fastest)
 ```javascript
 {
@@ -92,41 +78,7 @@ There are many options that can be customized in a Real-time report. You can fin
 }
 ```
 
-* Top Pages Sorted by Losers (Those that are failing in the ranking the fastest)
-```javascript
-{
-    "reportDescription":{
-        "source": "realtime",
-        "reportSuiteID":"rtd-example",
-        "metrics":[
-            {"id":"pageviews"}
-        ],
-        "elements":[
-            {"id":"page"}
-        ],
-        "sortMethod":"losers"
-    }
-}
-```
-
 > There are a few more [sort options](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/r-reportdescription-1#section_C4F49ABA1A664EDB8BC48DF8D8F026B0) that can be found in the documentation.
-
-* Pull the last hour of data for the top pages
-```javascript
-{
-    "reportDescription":{
-        "source": "realtime",
-        "reportSuiteID":"rtd-example",
-        "metrics":[
-            {"id":"pageviews"}
-        ],
-        "elements":[
-            {"id":"page"}
-        ],
-        "dateFrom":"-2 hour"
-    }
-}
-```
 
 * Pull the last 12 hours of data for each hour
 ```javascript
