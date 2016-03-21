@@ -19,7 +19,7 @@ Recall from lesson #2 that we simply displayed the raw report response on the pa
     var report = new RealTimeReport({
         dataElement: "#data-table",
         dataElementType: "BasicTable",
-        totalElement: "null",
+        totalElement: null,
         animateTotal: false,
         refreshInterval: null
     });
