@@ -23,22 +23,26 @@ Pulling a Real-time Report with the API
 
 We are going to use the API explorer to pull a Real-time report with the API. This will let us see how the API works so we can build a dashboard around it.
 
-> We've provided a set of test credentials for the purposes of this lab. To obtain credentials for your own account, follow the tutorial [here](https://marketing.adobe.com/developer/get-started/enterprise-api/c-get-web-service-access-to-the-enterprise-api).
+> NOTE: We've provided a set of test credentials for the purposes of this lab. To obtain credentials for your own account, follow the tutorial [here](https://marketing.adobe.com/developer/get-started/enterprise-api/c-get-web-service-access-to-the-enterprise-api).
 
 1.    In your browser go to <a href="https://marketing.adobe.com/developer/api-explorer" target="_blank">`https://marketing.adobe.com/developer/api-explorer`</a>
 
-2.    Enter the following credentials
+2.    Switch to the tab that is showing the <a href="https://marketing.adobe.com/developer/summitlab" target="_blank">`https://marketing.adobe.com/developer/summitlab`</a> page.
 
-    *    *API Username*:  [use API login username from step 2 above]
-    *    *Secret*: [use API login secret from step 2 above]
+3.    Enter the following credentials into the API explorer:
 
-3.    Select the following options
+    *    *Username*:  [use API login username from step 2]
+    *    *Secret*: [use API login secret from step 2]
+
+    > NOTE: these credentials are different from the credentials used to login to Adobe Analytics
+
+4.    Select the following options
     *    *API*: `Report`
     *    *Method*: `Run`
 
     > NOTE: You should also verify `REST` and `1.4` are selected under the *Request* tab
 
-4.    Enter the following JSON in the request box
+5.    Enter the following JSON in the request box
 
     ```javascript
     {
@@ -52,7 +56,7 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
     }
     ```
 
-5.    click "Get Response".
+6.    click "Get Response".
 
     If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "pageviews" represents traffic for the site over each time period.
 
