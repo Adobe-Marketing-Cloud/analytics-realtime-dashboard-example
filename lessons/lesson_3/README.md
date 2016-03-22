@@ -33,7 +33,7 @@ Recall from lesson #2 that we simply displayed the raw report response on the pa
             ], "elements": [
                 { "id": "page" }
             ],
-            "dateGranularity": "hour",
+            "dateGranularity": "minute:60",
             "dateFrom": "-20 hours",
             "sortMethod": "mostpopular"
         }
