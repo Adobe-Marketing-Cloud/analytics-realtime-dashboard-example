@@ -21,9 +21,11 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
 
+            
             MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
                 $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
+
 
             /*
             MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
@@ -42,6 +44,59 @@
                 $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
             */
+
+
+            /*
+            // MOST POPULAR REPORT
+            var report = new RealTimeReport({
+                dataElement: "#data-table",
+                dataElementType: "BasicTable",
+                totalElement: null,
+                animateTotal: false,
+                refreshInterval: null
+            });
+            report.run({
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "algorithm": "most popular",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "dateGranularity": "minute:60",
+                    "dateFrom": "-20 hours",
+                    "sortMethod": "mostpopular"
+                }
+            });
+            */
+
+
+            /*
+            // TREND GRAPH REPORT
+            report = new RealTimeReport({
+                dataElement: "#trendGraph",
+                dataElementType: "BasicTable",
+                totalElement: null,
+                animateTotal: false,
+                refreshInterval: null
+            });
+            report.run({
+                "reportDescription": {
+                    "source": "realtime",
+                    "reportSuiteID": "rtd-example",
+                    "metrics": [
+                        { "id": "pageviews" }
+                    ], "elements": [
+                        { "id": "page" }
+                    ],
+                    "dateGranularity": "minute:1",
+                    "dateFrom": "-15 minutes"
+                }
+            });
+            */
+
 
         });
     </script>
