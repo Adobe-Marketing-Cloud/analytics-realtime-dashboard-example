@@ -61,13 +61,15 @@ This report looks at the last 15 minutes of data so let's use it to power a line
         "reportDescription": {
             "source": "realtime",
             "reportSuiteID": "rtd-example",
+            "algorithm": "most popular",
             "metrics": [
                 { "id": "pageviews" }
             ], "elements": [
                 { "id": "page" }
             ],
             "dateGranularity": "minute:1",
-            "dateFrom": "-15 minutes"
+            "dateFrom": "-15 minutes",
+            "sortMethod": "mostpopular"
         }
     });
     ```
