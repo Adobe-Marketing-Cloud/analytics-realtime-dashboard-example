@@ -159,26 +159,3 @@ Add a table showing *losers*
     ```
 
 4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by losers in addition to the line graph and losers table.
-
-
-Add a table showing *most popular* pages
------
-
-1. Copy the block for the losers report and paste it below itself.
-
-2. In the `report.run` block you just pasted, modify the `algorithm`, `dateGranlularity`, `dateFrom`,  and `sortMethod` parameters. Notice the lack of a space when setting `sortMethod` to `mostpopular`. It is also the default value and could be removed as well.
-
-    ```javascript
-    "algorithm": "most popular",
-    "dateGranularity": "minute:1",
-    "dateFrom": "-60 minutes",
-    "sortMethod": "mostpopular"
-    ```
-
-3. In the same block, change the `dataElement` parameter to:
-
-    ```javascript
-    dataElement: "#data-table"
-    ```
-
-4. Click *File* > *Live Preview*.
