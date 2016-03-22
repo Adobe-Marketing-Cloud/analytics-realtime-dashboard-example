@@ -21,11 +21,11 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
 
-            
+
             MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
                 $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
-
+            
 
             /*
             MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
@@ -86,13 +86,15 @@
                 "reportDescription": {
                     "source": "realtime",
                     "reportSuiteID": "rtd-example",
+                    "algorithm": "most popular",
                     "metrics": [
                         { "id": "pageviews" }
                     ], "elements": [
                         { "id": "page" }
                     ],
                     "dateGranularity": "minute:1",
-                    "dateFrom": "-15 minutes"
+                    "dateFrom": "-15 minutes",
+                    "sortMethod": "mostpopular"
                 }
             });
             */
