@@ -101,7 +101,7 @@ Showing an animated total value
 
 The report data contains a total. Let's display it in a large animated format.
 
-1. Modify the `totalElement` and `animateTotal` parameters of the trend graph report to:
+1. Modify the `animateTotal` parameter of the trend graph report to:
 
     ```javascript
     totalElement: "#total",
