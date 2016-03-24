@@ -60,47 +60,9 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
 
     If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "pageviews" represents traffic for the site over each time period.
 
-Pulling a More Interesting Report
------
-
-There are many options that can be customized in a Real-time report. You can find the full documentation [here](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time). Let’s add a few more options to our request above.  Try out the requests below and take a look at that JSON you get back:
-
-* Top Pages Sorted by Gainers (Those that are rising in the ranking the fastest)
-```javascript
-{
-    "reportDescription":{
-        "source": "realtime",
-        "reportSuiteID":"rtd-example",
-        "metrics":[
-            {"id":"pageviews"}
-        ],
-        "elements":[
-            {"id":"page"}
-        ],
-        "sortMethod":"gainers"
-    }
-}
-```
+> There are many options that can be customized in a Real-time report. You can find the full documentation [here](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time).
 
 > There are a few more [sort options](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/r-reportdescription-1#section_C4F49ABA1A664EDB8BC48DF8D8F026B0) that can be found in the documentation.
-
-* Pull the last 12 hours of data for each hour
-```javascript
-{
-    "reportDescription":{
-        "source": "realtime",
-        "reportSuiteID":"rtd-example",
-        "metrics":[
-            {"id":"pageviews"}
-        ],
-        "elements":[
-            {"id":"page"}
-        ],
-        "dateFrom":"-12 hours",
-        "dateGranularity":"hour"
-    }
-}
-```
 
 > You can read more about [dateGranularity](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time#section_751CF36659DD4BFDA85554EC4368C464) and other options in the documentation.
 
