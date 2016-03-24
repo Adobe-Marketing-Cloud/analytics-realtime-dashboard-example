@@ -114,7 +114,9 @@ The report data contains a total. Let's display it in a large animated format.
 Add a table showing *gainers*
 -----
 
-1. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+1. Copy the entire `report.run` request from the most popular report we've already placed and paste it below the trend graph report.
+
+2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
 
     ```javascript
     "algorithm": "gainers",
@@ -123,19 +125,19 @@ Add a table showing *gainers*
     "sortMethod": "gainers"
     ```
 
-2. In the same block, change the `dataElement` parameter to:
+3. In the same block, change the `dataElement` parameter to:
 
     ```javascript
     dataElement: "#gainers-table"
     ```
 
-3. Let's increase the refresh interval for this report. Change the `refreshInterval` parameter to:
+4. Let's increase the refresh interval for this report. Change the `refreshInterval` parameter to:
 
     ```javascript
     refreshInterval: 30
     ```
 
-4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by gainers in addition to the line graph.
+5. Click *File* > *Live Preview*.  You you will now see a table of data sorted by gainers in addition to the line graph.
 
 
 Add a table showing *losers*
