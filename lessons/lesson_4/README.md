@@ -59,7 +59,7 @@ Before you can execute real-time reports, they must be specifically enabled on a
 Real-time Report Limitations
 -----
 
-See this example configuration:
+See this example configuration
 
     ```javascript
     [
@@ -94,7 +94,7 @@ See this example configuration:
     ]
     ```
 
-Each item under *`eal_time_settings` is a configured report. Each has a descriptive name and some settings.
+Each item under *`real_time_settings` is a configured report. Each has a descriptive name and some settings.
 
 `min_granularity`: This determines the minimum granularity allowed for the report in minutes. The minimum value is `1`.
 
@@ -124,7 +124,9 @@ Enabling Real-time Reports
 
     > NOTE: You should also verify `REST` and `1.4` are selected under the *Request* tab
 
-2.  If I wanted to add a new realtime report I would add the report and the configuration JSON in the request box: **EXAMPLE ONLY - DO NOT USE THESE VALUES**
+2.  If I wanted to add a new realtime report I would add the report and the configuration JSON in the request box: 
+
+**EXAMPLE ONLY - DO NOT USE THESE VALUES**
 
     The values below would add a new API-only real-time report using the metric `orders` and the `category` dimension broken down by the `product` dimension.
 
