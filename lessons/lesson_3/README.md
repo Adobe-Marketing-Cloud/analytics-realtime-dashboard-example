@@ -161,3 +161,5 @@ Add a table showing *losers*
     ```
 
 4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by losers in addition to the line graph and losers table.
+
+**Continue to [Lesson 4](../lesson_4#lesson-4--enabling-real-time-reports-on-your-report-suite) » (Advanced)**
