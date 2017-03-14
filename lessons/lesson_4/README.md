@@ -94,7 +94,7 @@ See this example configuration
     ]
     ```
 
-Each item under *`real_time_settings` is a configured report. Each has a descriptive name and some settings.
+Each item under `real_time_settings` is a configured report. Each has a descriptive name and some settings.
 
 `min_granularity`: This determines the minimum granularity allowed for the report in minutes. The minimum value is `1`.
 

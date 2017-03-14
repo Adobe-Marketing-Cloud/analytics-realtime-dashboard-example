@@ -66,13 +66,4 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
 
 > You can read more about [dateGranularity](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time#section_751CF36659DD4BFDA85554EC4368C464) and other options in the documentation.
 
-Learning about Real-time configuration
------
-
-Real-time reports must be configured ahead of time in order to run.
-
-You can view and modify the current Real-time configuration with the API. The documentation for that can be found [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-getrealtimesettings) and [here](https://marketing.adobe.com/developer/documentation/analytics-administration-1-4/r-saverealtimesettings).
-
-We will not cover viewing or setting the configuration in this lab, but just know it is something you need to think about.
-
 **Continue to [Lesson 2](../lesson_2#lesson-2--make-an-api-request-from-an-html-page) »**
