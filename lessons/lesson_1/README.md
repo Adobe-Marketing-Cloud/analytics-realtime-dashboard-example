@@ -75,4 +75,6 @@ You can view and modify the current Real-time configuration with the API. The do
 
 We will not cover viewing or setting the configuration in this lab, but just know it is something you need to think about.
 
+**« Return to [Home](../)**
+
 **Continue to [Lesson 2](../lesson_2#lesson-2--make-an-api-request-from-an-html-page) »**
