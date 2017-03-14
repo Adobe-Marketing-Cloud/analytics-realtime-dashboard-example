@@ -66,4 +66,5 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
 
 > You can read more about [dateGranularity](https://marketing.adobe.com/developer/documentation/analytics-reporting-1-4/real-time#section_751CF36659DD4BFDA85554EC4368C464) and other options in the documentation.
 
+**« Return to [Home](../)**
 **Continue to [Lesson 2](../lesson_2#lesson-2--make-an-api-request-from-an-html-page) »**

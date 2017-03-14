@@ -74,7 +74,7 @@ This report looks at the last 15 minutes of data so let's use it to power a line
     });
     ```
 
-2. Modify the `dataElement` and `dataElementType` parameters of the block you just copied to:
+2. Modify the `dataElementType` parameter of the block you just copied to:
 
     ```javascript
     dataElementType: "AnimatedTrendGraph",

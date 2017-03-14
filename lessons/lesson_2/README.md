@@ -26,10 +26,10 @@ Understanding the JavaScript libraries used in this example
 
 Before we starting editing the file, we want to take a quick look at the JavaScript libraries used to help create this example.
 
-1. `js/jquery-2.1.0.min.js` is a common JavaScript library used by the other libraries. We are also using the `js/jquery-animateNumber/jquery.animateNumber.min.js` and `js/jquery.basic_table.js` JQuery plugins for data display.
+1. `js/jquery-2.2.3.min.js` is a common JavaScript library used by the other libraries. We are also using the `js/jquery-animateNumber/jquery.animateNumber.min.js` and `js/jquery.basic_table.js` JQuery plugins for data display.
 
 	```html
-    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
     <script src="js/jquery.basic_table.js" type="text/javascript"></script>    
     ```
@@ -98,4 +98,5 @@ We will use JavaScript on the page to request a Real-time report and display the
 
 4.  Click *File* > *Live Preview* and you should see the raw result of the Real-time report in much the same format as we saw when using the API explorer.
 
+**« Return to [Lesson 1](../lesson_1#lesson-1--getting-real-time-reports-via-the-analytics-api)**
 **Continue to [Lesson 3](../lesson_3#using-real-time-report-data-to-create-a-dashboard) »**
