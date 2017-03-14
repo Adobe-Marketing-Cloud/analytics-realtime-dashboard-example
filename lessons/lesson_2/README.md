@@ -26,10 +26,10 @@ Understanding the JavaScript libraries used in this example
 
 Before we starting editing the file, we want to take a quick look at the JavaScript libraries used to help create this example.
 
-1. `js/jquery-2.1.0.min.js` is a common JavaScript library used by the other libraries. We are also using the `js/jquery-animateNumber/jquery.animateNumber.min.js` and `js/jquery.basic_table.js` JQuery plugins for data display.
+1. `js/jquery-2.2.3.min.js` is a common JavaScript library used by the other libraries. We are also using the `js/jquery-animateNumber/jquery.animateNumber.min.js` and `js/jquery.basic_table.js` JQuery plugins for data display.
 
 	```html
-    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="js/jquery-animateNumber/jquery.animateNumber.min.js" type="text/javascript"></script>
     <script src="js/jquery.basic_table.js" type="text/javascript"></script>    
     ```
@@ -55,7 +55,7 @@ Before we starting editing the file, we want to take a quick look at the JavaScr
 	<script src="js/custom.js" type="text/javascript"></script>
 	```
 
-5.	`js/realtime.js` is another library written for this example that encapsulates formatting and display logic for the Real-time report response data.
+5.	`js/real_time_report.js` is another library written for this example that encapsulates formatting and display logic for the Real-time report response data.
     
 	```html    
     <script src="js/real_time_report.js" type="text/javascript"></script>

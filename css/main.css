@@ -1,3 +1,7 @@
+/**
+* Analytics Realtime Dashboard Example CSS
+**/
+
 body {
     padding: 0px;
     margin: 0px;
@@ -321,3 +325,4 @@ circle {
 .hidden {
     display: none;
 }
+
