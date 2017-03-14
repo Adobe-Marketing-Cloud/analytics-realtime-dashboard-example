@@ -98,5 +98,4 @@ We will use JavaScript on the page to request a Real-time report and display the
 
 4.  Click *File* > *Live Preview* and you should see the raw result of the Real-time report in much the same format as we saw when using the API explorer.
 
-**« Return to [Lesson 1](../lesson_1#lesson-1--getting-real-time-reports-via-the-analytics-api)**
 **Continue to [Lesson 3](../lesson_3#using-real-time-report-data-to-create-a-dashboard) »**
