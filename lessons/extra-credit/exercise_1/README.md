@@ -1,5 +1,4 @@
-Lesson 4 – Enabling Real-time Reports on Your Report Suite (Advanced)
-
+Extra Credit - Exercise 1 – Enabling Real-time Reports on Your Report Suite
 =====
 
 Objectives
@@ -22,27 +21,29 @@ We will be using API Explorer to configure real-time reports on your report suit
 
 4. If your user has API credentials they will be listed in the box titled *Web Service Credentials*.  Take note of these as they will be required in later steps.
 
+    ![Alt text](/../../blob/master/images/extra_credit_1_1_4.png "Lesson 4 - 1")
+
 Real-time Report Configuration
 -----
 
 Before you can execute real-time reports, they must be specifically enabled on a report suite basis. This can be done through the Adobe Analytics Admin API. `ReportSuite.GetRealTimeSettings` allows you to see the current configuration and `ReportSuite.SaveRealtimeSettings` allows you to change it.
 
-1.    In your browser go to <a href=" in " target="_blank">`https://marketing.adobe.com/developer/api-explorer`</a>
+1. In your browser go to <a href=" in " target="_blank">`https://marketing.adobe.com/developer/api-explorer`</a>
 
-2.    Enter the credentials you obtained previously into the API explorer:
+2. Enter the credentials you obtained previously into the API explorer:
 
     *    *Username*: `myusername`
     *    *Secret*: `somelongsecret`
 
     > NOTE: these credentials are different from the credentials used to login to Adobe Analytics
 
-3.    Select the following options
+3. Select the following options
     *    *API*: `ReportSuite`
     *    *Method*: `GetRealTimeSettings`
 
     > NOTE: You should also verify `REST` and `1.4` are selected under the *Request* tab
 
-4.    Enter the following JSON in the request box:
+4. Enter the following JSON in the request box:
 
     ```javascript
     {
@@ -52,16 +53,18 @@ Before you can execute real-time reports, they must be specifically enabled on a
 
     replacing `myreportsuite` with the ID of the report suite you want to configure.
 
-4.    Click *Get Response*.
+4. Click *Get Response*.
 
     You should now see the current configuration for the report suite in the *Response* section. This will be explained next.
+
+    ![Alt text](/../../blob/master/images/extra_credit_1_2_4.png "Lesson 4 - 2")
 
 Real-time Report Limitations
 -----
 
 See this example configuration
 
-    ```javascript
+```javascript
     [
         {
             "rsid":"myreportsuite",
@@ -92,7 +95,7 @@ See this example configuration
             ]
         }
     ]
-    ```
+```
 
 Each item under `real_time_settings` is a configured report. Each has a descriptive name and some settings.
 
@@ -102,35 +105,28 @@ Each item under `real_time_settings` is a configured report. Each has a descript
 
 `metric`: This is the specific metric enabled for the report. Each real-time report is limited to a single metric.
 
-`elements`: These are the dimensions configured for the report. If more than one element is provided, it enables the first element to be broken down by one of the subsequent elements. In other words, the `MyReportCard*`report above can be executed using `page` alone, using `page` broken down by `searchenginekeyword`, or using `page` broken down by `referringdomain`.
+`elements`: These are the dimensions configured for the report. If more than one element is provided, it enables the first element to be broken down by one of the subsequent elements. In other words, the `MyReportCard`report above can be executed using `page` alone, using `page` broken down by `searchenginekeyword`, or using `page` broken down by `referringdomain`.
 
 > Currently, each report suite is limited to 9 UI-enabled dimensions and 9 API-enabled dimensions in real-time reports.  In the example above, both the UI and API are using 3 of the 9 allowed dimensions.
-
-
 
 Enabling Real-time Reports
 -----
 
+:warning: :warning: **Caution: You must include ALL reports you want enabled from `ReportSuite.GetRealTimeSettings` for EACH CALL to `ReportSuite.SaveRealTimeSettings`. If you omit reports they will be wiped out.** :warning: :warning:
 
-
-**Caution: You must include ALL reports you want enabled from `ReportSuite.GetRealTimeSettings` for EACH CALL to `ReportSuite.SaveRealTimeSettings`. If you omit reports they will be wiped out.**
-
-
-
-
-1.  In API explorer, select the following options
+1. In API explorer, select the following options
     *    *API*: `ReportSuite`
     *    *Method*: `SaveRealTimeSettings`
 
     > NOTE: You should also verify `REST` and `1.4` are selected under the *Request* tab
 
-2.  If I wanted to add a new realtime report I would add the report and the configuration JSON in the request box: 
+2. If I wanted to add a new realtime report I would add the report and the configuration JSON in the request box: 
 
-**EXAMPLE ONLY - DO NOT USE THESE VALUES**
+ :red_circle: **EXAMPLE ONLY - DO NOT USE THESE VALUES** :red_circle:
 
-    The values below would add a new API-only real-time report using the metric `orders` and the `category` dimension broken down by the `product` dimension.
+The values below would add a new API-only real-time report using the metric `orders` and the `category` dimension broken down by the `product` dimension.
 
-    ```javascript
+```javascript
     {
         "rsid_list":["myreportsuite"],
         "real_time_settings":[
@@ -168,9 +164,9 @@ Enabling Real-time Reports
             },            
         ]
     }
-    ```
+```
 
-3.    Click *Get Response*.
+3. Click *Get Response*.
 
     You should allow a few minutes for any new reports you've configured to start returning data.
 
