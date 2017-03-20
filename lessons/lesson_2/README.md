@@ -41,7 +41,7 @@ Before we starting editing the file, we want to take a quick look at the JavaScr
     <script src="js/d3.animated_trend.js" type="text/javascript"></script>
     ```
 
-3.	`js/marketing-cloud-javascript-sdk/marketing_cloud.js` is another Adobe library that simplfies interaction with the Analytics API. `js/wsse.js` is also an Adobe library that handles the auththenication with the Analytics API. The source for these libraries can be found [here](https://github.com/Adobe-Marketing-Cloud/marketing-cloud-javascript-sdk). The credentials used in this example are stored in the `config.js` file and are the same we used during lesson 1 with the API explorer.
+3.	`js/marketing-cloud-javascript-sdk/marketing_cloud.js` is another Adobe library that simplifies interaction with the Analytics API. `js/wsse.js` is also an Adobe library that handles the auththenication with the Analytics API. The source for these libraries can be found [here](https://github.com/Adobe-Marketing-Cloud/marketing-cloud-javascript-sdk). The credentials used in this example are stored in the `config.js` file and are the same we used during lesson 1 with the API explorer.
 
 	```html
     <script src="js/marketing-cloud-javascript-sdk/marketing_cloud.js" type="text/javascript"></script>
@@ -68,17 +68,25 @@ We will use JavaScript on the page to request a Real-time report and display the
 
 1.	Click *File* > *Live Preview*. This will execute the page as it currently stands. You will see a list of report suites. These are retrieved from the Analytics API using the Company.GetReportSuites API call. We want to remove this API call and replace it with a call to get a Real-time report.
 
-2.	Comment out or delete the code that calls `Company.GetReportSuites`:
+![Alt text](/../../blob/master/images/lesson_2_2_1.png "Lesson 2.2.1 Finished")
+
+2.	Remove the `MarketingCloud.makeRequest` code block which calls `Company.GetReportSuites` (near line 25):
 
 	```javascript
+    //////////////////////////////////
+    // COMPANY.GETREPORTSUITES EXAMPLE
+    //////////////////////////////////
     MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
         $('#dashboard').html(JSON.stringify(response.responseJSON));
     });
 	```
 
-3.	Uncomment the call to `Report.Run` by removing the /* and */ surrounding it:
+3.	Enable the `BASIC REPORT.RUN REQUEST` call by removing the block comments (e.g. `/*` and `*/`) surrounding it:
 
 	```javascript
+    ///////////////////////////
+    // BASIC REPORT.RUN REQUEST
+    ///////////////////////////
     MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
         "reportDescription": {
             "source": "realtime",
@@ -97,5 +105,7 @@ We will use JavaScript on the page to request a Real-time report and display the
 	```
 
 4.  Click *File* > *Live Preview* and you should see the raw result of the Real-time report in much the same format as we saw when using the API explorer.
+
+![Alt text](/../../blob/master/images/lesson_2_finish.png "Lesson 2 Finished")
 
 **Continue to [Lesson 3](../lesson_3#using-real-time-report-data-to-create-a-dashboard) »**

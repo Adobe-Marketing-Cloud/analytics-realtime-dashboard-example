@@ -22,12 +22,18 @@
         $( document ).ready(function() {
 
 
+            //////////////////////////////////
+            // COMPANY.GETREPORTSUITES EXAMPLE
+            //////////////////////////////////
             MarketingCloud.makeRequest(config.username, config.secret, 'Company.GetReportSuites', {}, config.endpoint, function(response) {
                 $('#dashboard').html(JSON.stringify(response.responseJSON));
             });
             
 
             /*
+            ///////////////////////////
+            // BASIC REPORT.RUN REQUEST
+            ///////////////////////////
             MarketingCloud.makeRequest(config.username, config.secret, 'Report.Run', {
                 "reportDescription": {
                     "source": "realtime",
@@ -47,7 +53,9 @@
 
 
             /*
+            ///////////////////////////
             // MOST POPULAR REPORT
+            ///////////////////////////
             var report = new RealTimeReport({
                 dataElement: "#data-table",
                 dataElementType: "BasicTable",
@@ -74,7 +82,9 @@
 
 
             /*
+            ///////////////////////////
             // TREND GRAPH REPORT
+            ///////////////////////////
             report = new RealTimeReport({
                 dataElement: "#trendGraph",
                 dataElementType: "BasicTable",

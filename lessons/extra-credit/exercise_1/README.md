@@ -1,4 +1,4 @@
-Lesson 4 – Enabling Real-time Reports on Your Report Suite (Advanced)
+Extra Credit - Exercise 1 – Enabling Real-time Reports on Your Report Suite
 =====
 
 Objectives
@@ -20,6 +20,8 @@ We will be using API Explorer to configure real-time reports on your report suit
 3. Select the *Users* tab. Find your user and select *Edit*.
 
 4. If your user has API credentials they will be listed in the box titled *Web Service Credentials*.  Take note of these as they will be required in later steps.
+
+    ![Alt text](/../../blob/master/images/extra_credit_1_1_4.png "Lesson 4 - 1")
 
 Real-time Report Configuration
 -----
@@ -54,6 +56,8 @@ Before you can execute real-time reports, they must be specifically enabled on a
 4. Click *Get Response*.
 
     You should now see the current configuration for the report suite in the *Response* section. This will be explained next.
+
+    ![Alt text](/../../blob/master/images/extra_credit_1_2_4.png "Lesson 4 - 2")
 
 Real-time Report Limitations
 -----
