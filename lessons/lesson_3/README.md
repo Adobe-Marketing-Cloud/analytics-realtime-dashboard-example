@@ -125,7 +125,7 @@ The report data contains a total. Let's display it in a large animated format.
 Add a table showing *gainers*
 -----
 
-1. Copy the entire `report.run` request from the `MOST POPULAR REPORT` we've already placed and paste it below the trend graph report. You can label this report as `GAINERS REPORT`
+1. Copy the entire `report.run` request from the `MOST POPULAR REPORT` we've already placed and paste it below the `TREND GRAPH REPORT`. You can label this report request as `GAINERS REPORT`
 
 2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` properties of the `reportDescription` object to:
 
@@ -150,11 +150,12 @@ Add a table showing *gainers*
 
 5. Click *File* > *Live Preview*.  You you will now see a table of data sorted by gainers in addition to the line graph.
 
+**For an example of what the JavaScript Code should now look like, see the [Finished HTML](../../finished/index.html#L25) »**
 
 Add a table showing *losers*
 -----
 
-1. Copy the block for the `GAINERS REPORT` and paste it below. Rename the new block to `LOSERS REPORT`
+1. Copy the block for the `GAINERS REPORT` and paste it below this request. Label the new block `LOSERS REPORT`
 
 2. In the `report.run` block for the new `LOSERS REPORT`, modify the `algorithm`, `sortMethod`, and `dateFrom` properties to:
 
