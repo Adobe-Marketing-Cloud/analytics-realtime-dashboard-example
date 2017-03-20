@@ -22,7 +22,9 @@
         // code to run when the HTML is fully loaded
         $( document ).ready(function() {
 
-            // spark line and total report
+            ///////////////////////////
+            // TREND GRAPH REPORT
+            ///////////////////////////
             var report = new RealTimeReport({
                 dataElement: "#trendGraph",
                 dataElementType: "AnimatedTrendGraph",
@@ -30,7 +32,6 @@
                 animateTotal: true,
                 refreshInterval: 10
             });
-
             report.run({
                 "reportDescription": {
                     "source": "realtime",
@@ -45,7 +46,9 @@
                 }
             });
 
-            // most popular report
+            ///////////////////////////
+            // MOST POPULAR REPORT
+            ///////////////////////////
             report = new RealTimeReport({
                 dataElement: "#data-table",
                 refreshInterval: 30
@@ -66,7 +69,10 @@
                 }
             });
 
-            // gainers report
+            
+            ///////////////////////////
+            // GAINERS REPORT
+            ///////////////////////////
             report = new RealTimeReport({
                 dataElement: "#gainers-table",
                 refreshInterval: 30
@@ -87,7 +93,10 @@
                 }
             });
 
-            // losers report
+
+            ///////////////////////////
+            // LOSERS REPORT
+            ///////////////////////////
             report = new RealTimeReport({
                 dataElement: "#losers-table",
                 refreshInterval: 30

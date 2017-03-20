@@ -13,9 +13,12 @@ Put the data in a table
 
 Recall from lesson #2 that we simply displayed the raw report response on the page. This is very hard to read. We want to parse through the data and stick it in an HTML table.
 
-1. Remove the call to `Report.Run` that we uncommented the last lesson and uncomment the next section:
+1. Remove the `BASIC REPORT.RUN REQUEST` call that we uncommented the last lesson and uncomment the next section called `MOST POPULAR REPORT`:
 
     ```javascript
+    ///////////////////////////
+    // MOST POPULAR REPORT
+    ///////////////////////////
     var report = new RealTimeReport({
         dataElement: "#data-table",
         dataElementType: "BasicTable",
@@ -42,14 +45,19 @@ Recall from lesson #2 that we simply displayed the raw report response on the pa
 
 2. Click *File* > *Live Preview*. You should see the data in a tabular format on the page. The `report.run` function executes the report the same way we did before and then formats the data and places it in the `#data-table` page element.
 
+    ![Alt text](/../../blob/master/images/lesson_3_1_1.png "Lesson 3 - 1")
+
 Adding a line graph
 -----
 
 This report looks at the last 15 minutes of data so let's use it to power a line graph. 
 
-1. Uncomment the next section:
+1. Simply uncomment the `TREND GRAPH REPORT` report request:
 
     ```javascript
+    ///////////////////////////
+    // TREND GRAPH REPORT
+    ///////////////////////////
     report = new RealTimeReport({
         dataElement: "#trendGraph",
         dataElementType: "BasicTable",
@@ -74,7 +82,9 @@ This report looks at the last 15 minutes of data so let's use it to power a line
     });
     ```
 
-2. Modify the `dataElementType` parameter of the block you just copied to:
+    > NOTE: Leave the existing `MOST POPULAR REPORT` alone for now
+
+2. Modify the `dataElementType` parameter of the `TREND GRAPH REPORT` to:
 
     ```javascript
     dataElementType: "AnimatedTrendGraph",
@@ -82,6 +92,7 @@ This report looks at the last 15 minutes of data so let's use it to power a line
 
 3. Click *File* > *Live Preview*.  The data is now formatted as displayed as a trended line graph.
 
+    ![Alt text](/../../blob/master/images/lesson_3_2_3.png "Lesson 3 - 2")
 
 Change the report to update periodically
 -----
@@ -101,7 +112,7 @@ Showing an animated total value
 
 The report data contains a total. Let's display it in a large animated format.
 
-1. Modify the `animateTotal` parameter of the trend graph report to:
+1. Modify the `animateTotal` parameter of the `TREND GRAPH REPORT` to:
 
     ```javascript
     totalElement: "#total",
@@ -114,9 +125,9 @@ The report data contains a total. Let's display it in a large animated format.
 Add a table showing *gainers*
 -----
 
-1. Copy the entire `report.run` request from the most popular report we've already placed and paste it below the trend graph report.
+1. Copy the entire `report.run` request from the `MOST POPULAR REPORT` we've already placed and paste it below the trend graph report. You can label this report as `GAINERS REPORT`
 
-2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` properties of the `reportDescription` object to:
 
     ```javascript
     "algorithm": "gainers",
@@ -125,7 +136,7 @@ Add a table showing *gainers*
     "sortMethod": "gainers"
     ```
 
-3. In the same block, change the `dataElement` parameter to:
+3. In the `GAINERS REPORT` request, change the `dataElement` parameter to:
 
     ```javascript
     dataElement: "#gainers-table"
@@ -143,9 +154,9 @@ Add a table showing *gainers*
 Add a table showing *losers*
 -----
 
-1. Copy the block for the gainers report and paste it below itself.
+1. Copy the block for the `GAINERS REPORT` and paste it below. Rename the new block to `LOSERS REPORT`
 
-2. In the `report.run` block you just pasted, modify the `algorithm`, `sortMethod`, and `dateFrom` to:
+2. In the `report.run` block for the new `LOSERS REPORT`, modify the `algorithm`, `sortMethod`, and `dateFrom` properties to:
 
     ```javascript
     "algorithm": "losers",
@@ -161,3 +172,7 @@ Add a table showing *losers*
     ```
 
 4. Click *File* > *Live Preview*.  You you will now see a table of data sorted by losers in addition to the line graph and losers table.
+
+    ![Alt text](/../../blob/master/images/lesson_3_finished.png "Lesson 3 - Finished")
+
+**Continue to Extra Credit [Exercise 1](../extra-credit/exercise_1#extra-credit---exercise-1--enabling-real-time-reports-on-your-report-suite) » (Advanced)**
