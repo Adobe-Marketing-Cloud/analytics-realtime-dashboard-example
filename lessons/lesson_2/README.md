@@ -14,7 +14,7 @@ Getting the Lab Files
 We will use GitHub to distribute this material to the lab workstations.
 
 1.	Open Google Chrome and browse to <a href="http://git.io/realtimelab" target="_blank">`http://git.io/realtimelab`</a>
-2.	Click the button labeled "Download ZIP" to download the zip package
+2.	Click the button labeled "Clone or Download", then "Download ZIP" to download the zip package
 3.  Locate the zip file and expand the package
 4.  Open the application "Brackets" from the application menu. We'll use this application to work from
 5.	Click *File* > *Open Folder*
