@@ -32,7 +32,7 @@ Recall from lesson #2 that we simply displayed the raw report response on the pa
             "reportSuiteID": "rtd-example",
             "algorithm": "most popular",
             "metrics": [
-                { "id": "pageviews" }
+                { "id": "instances" }
             ], "elements": [
                 { "id": "page" }
             ],
@@ -71,7 +71,7 @@ This report looks at the last 15 minutes of data so let's use it to power a line
             "reportSuiteID": "rtd-example",
             "algorithm": "most popular",
             "metrics": [
-                { "id": "pageviews" }
+                { "id": "instances" }
             ], "elements": [
                 { "id": "page" }
             ],
