@@ -50,7 +50,7 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
             "source": "realtime",
             "reportSuiteID":"rtd-example",
             "metrics":[
-                {"id":"pageviews"}
+                {"id":"instances"}
             ]
         }
     }
@@ -59,7 +59,7 @@ We are going to use the API explorer to pull a Real-time report with the API. Th
 6. Click "Get Response"
 
 
-If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "pageviews" represents traffic for the site over each time period.
+If all went well, you should get a JSON structure back that has a value every 5-minutes for the past hour. In this example, "instances" represents traffic for the site over each time period.
 
 ![Alt text](/../../blob/master/images/lesson_1_finish.png "Lesson 1 Finished")
 

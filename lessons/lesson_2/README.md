@@ -92,7 +92,7 @@ We will use JavaScript on the page to request a Real-time report and display the
             "source": "realtime",
             "reportSuiteID": "rtd-example",
             "metrics": [
-                { "id": "pageviews" }
+                { "id": "instances" }
             ], "elements": [
                 { "id": "page" }
             ],
